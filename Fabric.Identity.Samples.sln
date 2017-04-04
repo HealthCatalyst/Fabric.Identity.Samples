@@ -7,6 +7,8 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Samples.Mvc", "Mvc\Fabric.Identity.Samples.Mvc.csproj", "{325CEAFB-1F24-4C16-A6CF-F5B3021BDEFB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Samples.API", "API\Fabric.Identity.Samples.API.csproj", "{3A79683B-7F9C-46BB-8E99-B075F009F572}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{325CEAFB-1F24-4C16-A6CF-F5B3021BDEFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{325CEAFB-1F24-4C16-A6CF-F5B3021BDEFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{325CEAFB-1F24-4C16-A6CF-F5B3021BDEFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A79683B-7F9C-46BB-8E99-B075F009F572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A79683B-7F9C-46BB-8E99-B075F009F572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A79683B-7F9C-46BB-8E99-B075F009F572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A79683B-7F9C-46BB-8E99-B075F009F572}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
