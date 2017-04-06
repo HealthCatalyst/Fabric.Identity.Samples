@@ -1,15 +1,30 @@
 version: '2'
 
 services:
-  webapplication1:
-    image: webapplication1:dev
+  fabric.identity.samples.mvc:
+    image: fabric.identity.samples.mvc:dev
     build:
       args:
         source: ${DOCKER_BUILD_SOURCE}
     environment:
       - DOTNET_USE_POLLING_FILE_WATCHER=1
     volumes:
-      - ./WebApplication1:/app
+      - ./Fabric.Identity.Samples.Mvc:/app
+      - ~/.nuget/packages:/root/.nuget/packages:ro
+      - ~/clrdbg:/clrdbg:ro
+    entrypoint: tail -f /dev/null
+    labels:
+      - "com.microsoft.visualstudio.targetoperatingsystem=linux"
+
+  fabric.identity.samples.api:
+    image: fabric.identity.samples.api:dev
+    build:
+      args:
+        source: ${DOCKER_BUILD_SOURCE}
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+    volumes:
+      - ./Fabric.Identity.Samples.API:/app
       - ~/.nuget/packages:/root/.nuget/packages:ro
       - ~/clrdbg:/clrdbg:ro
     entrypoint: tail -f /dev/null

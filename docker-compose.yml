@@ -1,8 +1,14 @@
 version: '2'
 
 services:
-  webapplication1:
-    image: webapplication1
+  fabric.identity.samples.mvc:
+    image: fabric.identity.samples.mvc
     build:
-      context: ./WebApplication1
+      context: ./Mvc
+      dockerfile: Dockerfile
+
+  fabric.identity.samples.api:
+    image: fabric.identity.samples.api
+    build:
+      context: ./API
       dockerfile: Dockerfile
