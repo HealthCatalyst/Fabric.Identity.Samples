@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
+using Fabric.Platform.Bootstrappers.Nancy;
 using LibOwin;
 using Nancy;
 using Nancy.Bootstrapper;
@@ -14,8 +15,8 @@ namespace Fabric.Identity.Samples.API
         {
             base.RequestStartup(container, pipelines, context);
             var principal = context.GetOwinEnvironment()[OwinConstants.RequestUser] as ClaimsPrincipal;
-            
             context.CurrentUser = principal;
+            container.UseHttpClientFactory(context);
         }
 
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
