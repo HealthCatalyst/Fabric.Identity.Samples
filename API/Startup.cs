@@ -16,6 +16,7 @@ namespace Fabric.Identity.Samples.API
     public class Startup
     {
         private readonly IConfiguration _config;
+        private const string DefaultCorsPolicy = "default";
 
         public Startup(IHostingEnvironment env)
         {
@@ -31,7 +32,7 @@ namespace Fabric.Identity.Samples.API
             services.AddCors(options =>
             {
                 // this defines a CORS policy called "default"
-                options.AddPolicy("default", policy =>
+                options.AddPolicy(DefaultCorsPolicy, policy =>
                 {
                     policy.WithOrigins("http://localhost:4200")
                         .AllowAnyHeader()
@@ -46,23 +47,24 @@ namespace Fabric.Identity.Samples.API
         {
             var appConfig = new AppConfiguration();
             ConfigurationBinder.Bind(_config, appConfig);
+            var idServerSettings = appConfig.IdentityServerConfidentialClientSettings;
 
             var levelSwitch = new LoggingLevelSwitch();
-            var logger = LogFactory.CreateLogger(levelSwitch, appConfig.ElasticSearchSettings, "patientapi");
+            var logger = LogFactory.CreateLogger(levelSwitch, appConfig.ElasticSearchSettings, idServerSettings.ClientId);
 
-            NancyBootstrapper.Configure("http://localhost:5001", "patientapi", "secret");
+            NancyBootstrapper.Configure(idServerSettings.Authority, idServerSettings.ClientId, idServerSettings.ClientSecret);
 
-            app.UseCors("default");
+            app.UseCors(DefaultCorsPolicy);
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
-                Authority = "http://localhost:5001",
+                Authority = idServerSettings.Authority,
                 RequireHttpsMetadata = false,
 
-                ApiName = "patientapi"
+                ApiName = idServerSettings.ClientId
             });
             app.UseOwin()
                 .UseFabricLoggingAndMonitoring(logger, () => Task.FromResult(true), levelSwitch)
-                .UseAuthPlatform(new []{"patientapi"})
+                .UseAuthPlatform(idServerSettings.Scopes)
                 .UseNancy();
         }
     }
