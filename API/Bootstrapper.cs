@@ -6,11 +6,23 @@ using Nancy;
 using Nancy.Bootstrapper;
 using Nancy.Owin;
 using Nancy.TinyIoc;
+using Serilog;
 
 namespace Fabric.Identity.Samples.API
 {
     public class Bootstrapper : DefaultNancyBootstrapper
     {
+        private readonly ILogger _logger;
+
+        public Bootstrapper(ILogger logger)
+        {
+            if (logger == null)
+            {
+                throw new ArgumentNullException(nameof(logger));
+            }
+            _logger = logger;
+        }
+
         protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)
         {
             base.RequestStartup(container, pipelines, context);
@@ -24,7 +36,7 @@ namespace Fabric.Identity.Samples.API
             base.ApplicationStartup(container, pipelines);
             pipelines.OnError.AddItemToEndOfPipeline((ctx, ex) =>
             {
-                Console.WriteLine($"Unhandled error on request: {ctx.Request.Url}. Error Message: {ex.Message}");
+                _logger.Error(ex, "Unhandled error on request: @{Url}. Error Message: @{Message}", ctx.Request.Url, ex.Message);
                 return ctx.Response;
             });
         }

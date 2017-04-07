@@ -65,7 +65,7 @@ namespace Fabric.Identity.Samples.API
             app.UseOwin()
                 .UseFabricLoggingAndMonitoring(logger, () => Task.FromResult(true), levelSwitch)
                 .UseAuthPlatform(idServerSettings.Scopes)
-                .UseNancy();
+                .UseNancy(opt => opt.Bootstrapper = new Bootstrapper(logger));
         }
     }
 }
