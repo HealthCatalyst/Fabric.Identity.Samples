@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Fabric.Platform.Http;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,11 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IHttpClientFactory _httpClientFactory;
+        public HomeController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
         public IActionResult Index()
         {
             return View();
@@ -69,9 +75,8 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
 
         private async Task<IActionResult> CallApiWithToken(string accessToken)
         {
-            var uri = "http://localhost:5003/patients/123";
-            var client = new HttpClient();
-            client.SetBearerToken(accessToken);
+            var uri = new Uri("http://localhost:5003/patients/123");
+            var client = _httpClientFactory.CreateWithAccessToken(uri, accessToken);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = await client.GetAsync(uri);
             if (response.IsSuccessStatusCode)

@@ -1,14 +1,23 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Threading.Tasks;
+using Fabric.Identity.Samples.Mvc.Configuration;
+using Fabric.Platform.Http;
+using Fabric.Platform.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Context;
+using Serilog.Core;
 
 namespace Fabric.Identity.Samples.Mvc
 {
     public class Startup
     {
+        private IAppConfiguration _appConfig;
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -24,15 +33,27 @@ namespace Fabric.Identity.Samples.Mvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            _appConfig = new AppConfiguration();
+            ConfigurationBinder.Bind(Configuration, _appConfig);
+            var idServerSettings = _appConfig.IdentityServerConfidentialClientSettings;
+            Func<IServiceProvider, IHttpClientFactory> httpClientFactorySupplier = p => new HttpClientFactory(idServerSettings.Authority, idServerSettings.ClientId,
+                idServerSettings.ClientSecret, "", "");
             // Add framework services.
+            services.AddScoped<IHttpClientFactory>(httpClientFactorySupplier);
             services.AddMvc();
         }
-
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            
+            var idServerSettings = _appConfig.IdentityServerConfidentialClientSettings;
+
+            var levelSwitch = new LoggingLevelSwitch();
+            var logger = LogFactory.CreateLogger(levelSwitch, _appConfig.ElasticSearchSettings, idServerSettings.ClientId);
+
+            loggerFactory.AddSerilog(logger);
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             app.UseCookieAuthentication(new CookieAuthenticationOptions
@@ -46,11 +67,11 @@ namespace Fabric.Identity.Samples.Mvc
                 AuthenticationScheme = "oidc",
                 SignInScheme = "Cookies",
 
-                Authority = "http://localhost:5001",
+                Authority = idServerSettings.Authority,
                 RequireHttpsMetadata = false,
 
-                ClientId = "fabric-mvcsample",
-                ClientSecret = "secret",
+                ClientId = idServerSettings.ClientId,
+                ClientSecret = idServerSettings.ClientSecret,
 
                 ResponseType = "code id_token",
                 Scope = { "openid", "profile", "fabric.profile", "patientapi", "offline_access"},
@@ -71,6 +92,9 @@ namespace Fabric.Identity.Samples.Mvc
 
             app.UseStaticFiles();
 
+            app.UseOwin()
+                .UseFabricLoggingAndMonitoring(logger, () => Task.FromResult(true), levelSwitch);
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -78,7 +102,8 @@ namespace Fabric.Identity.Samples.Mvc
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            
+
+
         }
     }
 }
