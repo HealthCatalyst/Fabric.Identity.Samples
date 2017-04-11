@@ -53,9 +53,7 @@ namespace Fabric.Identity.Samples.API
 
             var levelSwitch = new LoggingLevelSwitch();
             var logger = LogFactory.CreateLogger(levelSwitch, appConfig.ElasticSearchSettings, idServerSettings.ClientId);
-
-            NancyBootstrapper.Configure(idServerSettings.Authority, idServerSettings.ClientId, idServerSettings.ClientSecret);
-
+            
             app.UseCors(DefaultCorsPolicy);
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
@@ -67,7 +65,7 @@ namespace Fabric.Identity.Samples.API
             app.UseOwin()
                 .UseFabricLoggingAndMonitoring(logger, () => Task.FromResult(true), levelSwitch)
                 .UseAuthPlatform(idServerSettings.Scopes)
-                .UseNancy(opt => opt.Bootstrapper = new Bootstrapper(logger));
+                .UseNancy(opt => opt.Bootstrapper = new Bootstrapper(logger, appConfig));
         }
     }
 }

@@ -1,16 +1,15 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using Fabric.Identity.Samples.Mvc.Configuration;
-using Fabric.Platform.Http;
+using Fabric.Platform.Bootstrappers.AspNetCoreMvc;
 using Fabric.Platform.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using Serilog.Context;
 using Serilog.Core;
 
 namespace Fabric.Identity.Samples.Mvc
@@ -36,11 +35,9 @@ namespace Fabric.Identity.Samples.Mvc
             
             _appConfig = new AppConfiguration();
             ConfigurationBinder.Bind(Configuration, _appConfig);
-            var idServerSettings = _appConfig.IdentityServerConfidentialClientSettings;
-            Func<IServiceProvider, IHttpClientFactory> httpClientFactorySupplier = p => new HttpClientFactory(idServerSettings.Authority, idServerSettings.ClientId,
-                idServerSettings.ClientSecret, "", "");
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpClientFactory(_appConfig.IdentityServerConfidentialClientSettings);
             // Add framework services.
-            services.AddScoped<IHttpClientFactory>(httpClientFactorySupplier);
             services.AddMvc();
         }
         
