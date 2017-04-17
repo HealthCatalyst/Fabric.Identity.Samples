@@ -9,7 +9,7 @@
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Fabric.Platform.Bootstrappers.AspNetCoreMvc" Version="1.0.0-alpha.1" />
+    <PackageReference Include="Fabric.Platform.Bootstrappers.AspNetCoreMvc" Version="1.0.0-beta" />
     <PackageReference Include="IdentityModel" Version="2.7.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
