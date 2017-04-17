@@ -16,9 +16,6 @@ These samples are built using various technologies including:
 + [Install Node and NPM](https://docs.npmjs.com/getting-started/installing-node)
 + [Install the Angular CLI](https://github.com/angular/angular-cli)
 + [Ensure you have the Fabric.Idenity service running locally](https://github.com/HealthCatalyst/Fabric.Identity)
-+ Update your NugGet config to include the Fabric dev nuget feed
-  + [Map a network drive for box](https://bbcrm.edusupportcenter.com/link/portal/8197/8382/Article/4747/Can-I-map-a-network-drive-to-my-Box-storage-Windows-PC-only)
-  + Edit your NuGet.config to include `<add key="Fabric.Nuget" value="{your mapped drive}:\Fabric.Nuget\" />`
 + Clone or download the repo
 + Run `.\runSamples.ps1` from Powershell
 
