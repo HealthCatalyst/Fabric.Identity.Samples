@@ -12,8 +12,6 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthService } from './shared/services/auth.service';
-import { UserManager, Log, MetadataService, User } from 'oidc-client';
-import { OidccallbackComponent } from './oidccallback/oidccallback.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
@@ -24,7 +22,6 @@ import { LogoutComponent } from './logout/logout.component';
     NavmenuComponent,
     ViewpatientComponent,
     UnauthorizedComponent,
-    OidccallbackComponent,
     LoginComponent,
     LogoutComponent
   ],
@@ -35,7 +32,6 @@ import { LogoutComponent } from './logout/logout.component';
       RouterModule.forRoot([
           { path: '', redirectTo: 'home', pathMatch: 'full' },
           { path: 'home', component: HomeComponent },
-          { path: 'oidc-callback', component: OidccallbackComponent},
           { path: 'viewpatient', component: ViewpatientComponent, canActivate: [AuthGuardService] },
           { path: 'unauthorized', component: UnauthorizedComponent },
           { path: 'login', component: LoginComponent },

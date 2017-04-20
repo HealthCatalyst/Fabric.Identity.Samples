@@ -8,8 +8,26 @@
       "root": "src",
       "outDir": "dist",
       "assets": [
-        "assets",
-        "favicon.ico"
+        {
+          "glob": "**/*.js",
+          "input": "../node_modules/oidc-client/dist/",
+          "output": "./"
+        },
+        {
+          "glob": "**/*",
+          "input": "./assets/",
+          "output": "./assets/"
+        },
+        {
+          "glob": "favicon.ico",
+          "input": "./",
+          "output": "./"
+        },
+        {
+          "glob": "oidc-callback.html",
+          "input": "./",
+          "output": "./"
+        }
       ],
       "index": "index.html",
       "main": "main.ts",
