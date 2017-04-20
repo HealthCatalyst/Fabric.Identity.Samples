@@ -9,8 +9,8 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fabric.Platform.Bootstrappers.Nancy" Version="1.0.0-beta" />
-    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="1.1.0" />
+    <PackageReference Include="Fabric.Platform.Bootstrappers.Nancy" Version="1.0.0-beta3" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="1.2.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="1.1.1" />
