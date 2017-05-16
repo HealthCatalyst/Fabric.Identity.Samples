@@ -82,11 +82,11 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
         {
             var viewerGroup = await SetupGroup(
                 new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "viewpatient"},
-                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "viewer"}, "Health Catalyst Viewer").Result;
+                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "viewer"}, @"FABRIC\Health Catalyst Viewer").Result;
 
             var editorGroup = await SetupGroup(
                 new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "editpatient"},
-                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "editor"}, "Health Catalyst Editor").Result;
+                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "editor"}, @"FABRIC\Health Catalyst Editor").Result;
 
             ViewBag.CreatedGroups = new List<dynamic> { viewerGroup, editorGroup };
             return View("Json");

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -36,7 +37,7 @@ namespace Fabric.Identity.Samples.Mvc.Services
         {
             var roleResponse = await _client.PostAsync("/roles", CreateJsonContent(role));
             roleResponse.EnsureSuccessStatusCode();
-            return  JsonConvert.DeserializeObject(await roleResponse.Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject(await roleResponse.Content.ReadAsStringAsync());
         }
 
         public async Task AddPermissionToRole(dynamic permission, dynamic role)
@@ -48,13 +49,15 @@ namespace Fabric.Identity.Samples.Mvc.Services
 
         public async Task AddRoleToGroup(dynamic role, string groupName)
         {
-            var groupRoleResponse = await _client.PostAsync($"/groups/{groupName}/roles", CreateJsonContent(role));
+            var groupUrlStub = WebUtility.UrlEncode(groupName);
+            var groupRoleResponse = await _client.PostAsync($"/groups/{groupUrlStub}/roles", CreateJsonContent(role));
             groupRoleResponse.EnsureSuccessStatusCode();
         }
 
         public async Task<dynamic> GetGroupByName(string groupName)
         {
-            var groupResponse = await _client.GetAsync($"/groups/{groupName}/roles");
+            var groupUrlStub = WebUtility.UrlEncode(groupName);
+            var groupResponse = await _client.GetAsync($"/groups/{groupUrlStub}/roles");
             groupResponse.EnsureSuccessStatusCode();
             return JsonConvert.DeserializeObject(await groupResponse.Content.ReadAsStringAsync());
         }
@@ -85,13 +88,10 @@ namespace Fabric.Identity.Samples.Mvc.Services
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposing && _client != null)
             {
-                if (_client != null)
-                {
-                    _client.Dispose();
-                    _client = null;
-                }
+                _client.Dispose();
+                _client = null;
             }
         }
     }
