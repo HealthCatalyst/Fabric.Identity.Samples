@@ -92,14 +92,23 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
             return View("Json");
         }
 
+        public async Task<IActionResult> GetPermissionsForUser()
+        {
+            var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
+            _fabricAuthorizationService.SetAccessToken(accessToken);
+            var permissions = _fabricAuthorizationService.GetPermissionsForUser("app", "fabric-mvcsample").Result;
+            ViewBag.UserPermissions = permissions;
+            return View("Json");
+        }
+
         private async Task<dynamic> SetupGroup(dynamic permission, dynamic role, string group)
         {
             var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
             _fabricAuthorizationService.SetAccessToken(accessToken);
             permission = await _fabricAuthorizationService.CreatePermission(permission);
             role = await _fabricAuthorizationService.CreatRole(role);
-            _fabricAuthorizationService.AddPermissionToRole(permission, role);
-            _fabricAuthorizationService.AddRoleToGroup(role, group);
+            await _fabricAuthorizationService.AddPermissionToRole(permission, role);
+            await _fabricAuthorizationService.AddRoleToGroup(role, group);
             return _fabricAuthorizationService.GetGroupByName(group);
         }
 

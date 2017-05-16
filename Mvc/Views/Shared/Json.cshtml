@@ -28,3 +28,11 @@
         </pre>
     }
 }
+
+@if (ViewBag.UserPermissions != null)
+{
+    <h3>Authenticated User's Permissions</h3>
+    <pre>
+        @Html.Raw(JsonConvert.SerializeObject(ViewBag.UserPermissions, Formatting.Indented))
+    </pre>
+}

@@ -59,6 +59,14 @@ namespace Fabric.Identity.Samples.Mvc.Services
             return JsonConvert.DeserializeObject(await groupResponse.Content.ReadAsStringAsync());
         }
 
+        public async Task<dynamic> GetPermissionsForUser(string grain, string securableItem)
+        {
+            var permissionResponse = await _client.GetAsync($"/user/permissions?grain={grain}&securableItem={securableItem}");
+            permissionResponse.EnsureSuccessStatusCode();
+            return JsonConvert.DeserializeObject(await permissionResponse.Content.ReadAsStringAsync());
+        }
+
+
         private StringContent CreateJsonContent(object model)
         {
             return new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");

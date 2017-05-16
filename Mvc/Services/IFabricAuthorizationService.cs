@@ -15,5 +15,8 @@ namespace Fabric.Identity.Samples.Mvc.Services
         Task AddRoleToGroup(dynamic role, string groupName);
 
         Task<dynamic> GetGroupByName(string groupName);
+
+        Task<dynamic> GetPermissionsForUser(string grain, string securableItem);
+
     }
 }

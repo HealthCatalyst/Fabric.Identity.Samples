@@ -10,6 +10,9 @@
 <div>
     <a asp-action="SetupRolesAndPermissions">Setup Roles and Permissions</a>
 </div>
+<div>
+    <a asp-action="GetPermissionsForUser">Get Permissions for Authenticated User</a>
+</div>
 <dl>
     @foreach (var claim in User.Claims)
     {
