@@ -1,4 +1,5 @@
-﻿<h2>API response</h2>
+﻿@using Newtonsoft.Json
+<h2>API response</h2>
 @if (ViewBag.ErrorMessage != null)
 {
     <h3>@ViewBag.ErrorMessage</h3>
@@ -15,4 +16,15 @@
         <dt>Patient DOB</dt>
         <dd>@ViewBag.PatientDataResponse.DateOfBirth</dd>
     </dl>
+}
+
+@if (ViewBag.CreatedGroups != null)
+{
+    <h3>Created Roles and Permissions</h3>
+    foreach (var group in ViewBag.CreatedGroups)
+    {
+        <pre>
+            @Html.Raw(JsonConvert.SerializeObject(group, Formatting.Indented))
+        </pre>
+    }
 }

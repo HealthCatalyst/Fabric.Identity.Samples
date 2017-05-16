@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Fabric.Identity.Samples.Mvc.Services;
 using Fabric.Platform.Http;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
@@ -15,9 +17,12 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
     public class HomeController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        public HomeController(IHttpClientFactory httpClientFactory)
+        private readonly IFabricAuthorizationService _fabricAuthorizationService;
+        public HomeController(IHttpClientFactory httpClientFactory, IFabricAuthorizationService authorizationService)
         {
             _httpClientFactory = httpClientFactory;
+            _fabricAuthorizationService = authorizationService ??
+                                    throw new ArgumentNullException(nameof(authorizationService));
         }
         public IActionResult Index()
         {
@@ -71,6 +76,31 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
                 throw;
             }
             
+        }
+
+        public async Task<IActionResult> SetupRolesAndPermissions()
+        {
+            var viewerGroup = await SetupGroup(
+                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "viewpatient"},
+                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "viewer"}, "Health Catalyst Viewer").Result;
+
+            var editorGroup = await SetupGroup(
+                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "editpatient"},
+                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "editor"}, "Health Catalyst Editor").Result;
+
+            ViewBag.CreatedGroups = new List<dynamic> { viewerGroup, editorGroup };
+            return View("Json");
+        }
+
+        private async Task<dynamic> SetupGroup(dynamic permission, dynamic role, string group)
+        {
+            var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
+            _fabricAuthorizationService.SetAccessToken(accessToken);
+            permission = await _fabricAuthorizationService.CreatePermission(permission);
+            role = await _fabricAuthorizationService.CreatRole(role);
+            _fabricAuthorizationService.AddPermissionToRole(permission, role);
+            _fabricAuthorizationService.AddRoleToGroup(role, group);
+            return _fabricAuthorizationService.GetGroupByName(group);
         }
 
         private async Task<IActionResult> CallApiWithToken(string accessToken)

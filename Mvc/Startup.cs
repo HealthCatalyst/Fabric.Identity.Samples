@@ -15,6 +15,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using Fabric.Identity.Samples.Mvc.Configuration;
+using Fabric.Identity.Samples.Mvc.Services;
 using Fabric.Platform.Bootstrappers.AspNetCoreMvc;
 using Fabric.Platform.Logging;
 using Microsoft.AspNetCore.Builder;
@@ -50,6 +51,7 @@ namespace Fabric.Identity.Samples.Mvc
             _appConfig = new AppConfiguration();
             ConfigurationBinder.Bind(Configuration, _appConfig);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IFabricAuthorizationService, FabricAuthorizationService>();
             services.AddHttpClientFactory(_appConfig.IdentityServerConfidentialClientSettings);
             // Add framework services.
             services.AddMvc();
@@ -85,7 +87,7 @@ namespace Fabric.Identity.Samples.Mvc
                 ClientSecret = idServerSettings.ClientSecret,
 
                 ResponseType = "code id_token",
-                Scope = { "openid", "profile", "fabric.profile", "patientapi", "offline_access"},
+                Scope = { "openid", "profile", "fabric.profile", "patientapi", "fabric/authorization.read", "fabric/authorization.write", "offline_access" },
 
                 GetClaimsFromUserInfoEndpoint = true,
                 SaveTokens = true
