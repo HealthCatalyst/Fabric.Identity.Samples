@@ -32,6 +32,7 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
         public async Task<IActionResult> Patient()
         {
             var permissions = GetPermissionsForUserInternal().Result;
+            ViewBag.UserPermissions = permissions;
             if (permissions.Permissions.Contains("app/fabric-mvcsample.viewpatient"))
             {
                 var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
@@ -71,6 +72,15 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
         {
             var permissions = await GetPermissionsForUserInternal();
             ViewBag.UserPermissions = permissions;
+            return View("Json");
+        }
+
+        public async Task<dynamic> GetGroupsRolesAndPermissions()
+        {
+            var viewerGroup = await _fabricAuthorizationService.GetGroupByName(@"FABRIC\Health Catalyst Viewer");
+            var editorGroup = await _fabricAuthorizationService.GetGroupByName(@"FABRIC\Health Catalyst Editor");
+
+            ViewBag.CreatedGroups = new List<dynamic> { viewerGroup, editorGroup };
             return View("Json");
         }
 

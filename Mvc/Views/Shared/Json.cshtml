@@ -36,3 +36,13 @@
         @Html.Raw(JsonConvert.SerializeObject(ViewBag.UserPermissions, Formatting.Indented))
     </pre>
 }
+
+<h3>Authenticated User Claims</h3>
+<dl>
+    @foreach (var claim in User.Claims)
+    {
+
+        <dt>@(claim.Type == "role" ? "group" : claim.Type)</dt>
+        <dd>@claim.Value</dd>
+    }
+</dl>
