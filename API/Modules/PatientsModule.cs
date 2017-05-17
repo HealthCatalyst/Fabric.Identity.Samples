@@ -9,9 +9,6 @@ namespace Fabric.Identity.Samples.API.Modules
     {
         public PatientsModule() : base("/patients")
         {
-            Predicate<Claim> readDemographicsClaim = claim => claim.Type == "allowedresource" && claim.Value == "user/Patient.read";
-
-            this.RequiresClaims(new[] { readDemographicsClaim });
             Get("/{patientId}", parameters => new
             {
                 FirstName = "Test",

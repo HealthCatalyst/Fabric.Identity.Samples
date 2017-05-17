@@ -3,16 +3,27 @@
 }
 <h2>@ViewData["Title"].</h2>
 
-<p>Click the link below to call the patient demographic data api using a user token.</p>
-<div>
-    <a asp-action="CallApiUsingUserAccessToken">Call API using user token</a>
-</div>
-<div>
-    <a asp-action="SetupRolesAndPermissions">Setup Roles and Permissions</a>
-</div>
-<div>
-    <a asp-action="GetPermissionsForUser">Get Permissions for Authenticated User</a>
-</div>
+@if (ViewBag.ErrorMessage != null)
+{
+    <h3>@ViewBag.ErrorMessage</h3>
+}
+
+@if (ViewBag.PatientDataResponse != null)
+{
+    <h3>Patient Information</h3>
+    <dl>
+        <dt>Patient First Name</dt>
+        <dd>@ViewBag.PatientDataResponse.FirstName</dd>
+        <dt>Patient Last Name</dt>
+        <dd>@ViewBag.PatientDataResponse.LastName</dd>
+        <dt>Patient DOB</dt>
+        <dd>@ViewBag.PatientDataResponse.DateOfBirth</dd>
+    </dl>
+    <div>
+        <input class="btn btn-default" type="button" value="Edit Patient" @(ViewBag.HasEditPatientPermission ? "" : "disabled")>
+    </div>
+}
+<h3>Authenticated User Claims</h3>
 <dl>
     @foreach (var claim in User.Claims)
     {

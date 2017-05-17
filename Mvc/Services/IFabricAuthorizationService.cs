@@ -16,7 +16,7 @@ namespace Fabric.Identity.Samples.Mvc.Services
 
         Task<dynamic> GetGroupByName(string groupName);
 
-        Task<dynamic> GetPermissionsForUser(string grain, string securableItem);
+        Task<UserPermissions> GetPermissionsForUser(string grain, string securableItem);
 
     }
 }

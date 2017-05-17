@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -62,11 +63,11 @@ namespace Fabric.Identity.Samples.Mvc.Services
             return JsonConvert.DeserializeObject(await groupResponse.Content.ReadAsStringAsync());
         }
 
-        public async Task<dynamic> GetPermissionsForUser(string grain, string securableItem)
+        public async Task<UserPermissions> GetPermissionsForUser(string grain, string securableItem)
         {
             var permissionResponse = await _client.GetAsync($"/user/permissions?grain={grain}&securableItem={securableItem}");
             permissionResponse.EnsureSuccessStatusCode();
-            return JsonConvert.DeserializeObject(await permissionResponse.Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject<UserPermissions>(await permissionResponse.Content.ReadAsStringAsync());
         }
 
 
@@ -94,5 +95,11 @@ namespace Fabric.Identity.Samples.Mvc.Services
                 _client = null;
             }
         }
+    }
+    public class UserPermissions
+    {
+        public IEnumerable<string> Permissions { get; set; }
+        public string RequestedGrain { get; set; }
+        public string RequestedSecurableItem { get; set; }
     }
 }

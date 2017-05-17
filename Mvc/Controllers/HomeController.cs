@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Fabric.Identity.Samples.Mvc.Services;
 using Fabric.Platform.Http;
-using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +13,8 @@ using Newtonsoft.Json;
 
 namespace Fabric.Identity.Samples.Mvc.Controllers
 {
+
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
@@ -28,12 +29,17 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
         {
             return View();
         }
-        [Authorize]
-        public IActionResult Patient()
+        public async Task<IActionResult> Patient()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            var permissions = GetPermissionsForUserInternal().Result;
+            if (permissions.Permissions.Contains("app/fabric-mvcsample.viewpatient"))
+            {
+                var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
+                ViewBag.HasEditPatientPermission = permissions.Permissions.Contains("app/fabric-mvcsample.editpatient");
+                return await CallApiWithToken(accessToken);
+            }
+            ViewBag.ErrorMessage = $"This user does not have permission to view patients";
+            return View("Patient");
         }
         
         public IActionResult Error()
@@ -45,37 +51,6 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
         {
             await HttpContext.Authentication.SignOutAsync("Cookies");
             await HttpContext.Authentication.SignOutAsync("oidc");
-        }
-
-        public async Task<IActionResult> CallApiUsingClientCredentials()
-        {
-            try
-            {
-                var tokenClient = new TokenClient("http://localhost:5001/connect/token", "fabric-mvcsample", "secret");
-                var tokenResponse = await tokenClient.RequestClientCredentialsAsync("patientapi");
-                return await CallApiWithToken(tokenResponse.AccessToken);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            
-        }
-
-        public async Task<IActionResult> CallApiUsingUserAccessToken()
-        {
-            try
-            {
-                var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
-                return await CallApiWithToken(accessToken);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-            
         }
 
         public async Task<IActionResult> SetupRolesAndPermissions()
@@ -94,11 +69,16 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
 
         public async Task<IActionResult> GetPermissionsForUser()
         {
-            var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
-            _fabricAuthorizationService.SetAccessToken(accessToken);
-            var permissions = _fabricAuthorizationService.GetPermissionsForUser("app", "fabric-mvcsample").Result;
+            var permissions = await GetPermissionsForUserInternal();
             ViewBag.UserPermissions = permissions;
             return View("Json");
+        }
+
+        private async Task<UserPermissions> GetPermissionsForUserInternal()
+        {
+            var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
+            _fabricAuthorizationService.SetAccessToken(accessToken);
+            return _fabricAuthorizationService.GetPermissionsForUser("app", "fabric-mvcsample").Result;
         }
 
         private async Task<dynamic> SetupGroup(dynamic permission, dynamic role, string group)
@@ -121,13 +101,13 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
             if (response.IsSuccessStatusCode)
             {
                 ViewBag.PatientDataResponse = JsonConvert.DeserializeObject<PatientDataResponse>(await response.Content.ReadAsStringAsync());
-                return View("Json");
+                return View("Patient");
             }
 
             if (response.StatusCode == HttpStatusCode.Forbidden)
             {
                 ViewBag.ErrorMessage = $"Received 403 Forbidden when calling: {uri}";
-                return View("Json");
+                return View("Patient");
             }
             throw new Exception($"Error received: {response.StatusCode} when trying to contact remote server: {uri}");
         }
@@ -145,4 +125,6 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
         public string Type { get; set; }
         public string Value { get; set; }
     }
+
+    
 }
