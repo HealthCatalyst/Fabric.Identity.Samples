@@ -77,6 +77,8 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
 
         public async Task<dynamic> GetGroupsRolesAndPermissions()
         {
+            var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
+            _fabricAuthorizationService.SetAccessToken(accessToken);
             var viewerGroup = await _fabricAuthorizationService.GetGroupByName(@"FABRIC\Health Catalyst Viewer");
             var editorGroup = await _fabricAuthorizationService.GetGroupByName(@"FABRIC\Health Catalyst Editor");
 
