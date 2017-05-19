@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Fabric.Identity.Samples.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "app/fabric-mvcsample.editpatient app/fabric-mvcsample.viewer"
+    }
+  }
+}
