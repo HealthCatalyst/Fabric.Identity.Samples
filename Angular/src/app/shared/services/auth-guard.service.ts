@@ -10,8 +10,8 @@ export class AuthGuardService {
         return this.authService.isUserAuthenticated().then((result) => {
             if (result) {
                 return true;
-            } else {
-                this.router.navigate(['unauthorized']);
+            } else {               
+                this.authService.login();
                 return false;
             }
         });

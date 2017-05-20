@@ -12,6 +12,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthService } from './shared/services/auth.service';
+import { FabricAuthService } from './shared/services/fabric-auth.service';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
@@ -30,17 +31,24 @@ import { LogoutComponent } from './logout/logout.component';
       FormsModule,
       HttpModule,
       RouterModule.forRoot([
-          { path: '', redirectTo: 'home', pathMatch: 'full' },
-          { path: 'home', component: HomeComponent },
-          { path: 'viewpatient', component: ViewpatientComponent, canActivate: [AuthGuardService] },
-          { path: 'unauthorized', component: UnauthorizedComponent },
-          { path: 'login', component: LoginComponent },
-          { path: 'logout', component: LogoutComponent }
+        { path: '', canActivate: [AuthGuardService],  children: [
+                { path: '', children: [
+                    { path: '', redirectTo: 'home', pathMatch: 'full' },
+                    { path: 'home', component: HomeComponent },
+                    { path: 'viewpatient', component: ViewpatientComponent },
+                    { path: 'unauthorized', component: UnauthorizedComponent },
+                    { path: 'login', component: LoginComponent },
+                    { path: 'logout', component: LogoutComponent }
+                ]
+                }
+            ]
+        }
       ])
   ],
   providers: [
       AuthGuardService,
-      AuthService
+      AuthService,
+      FabricAuthService
   ],
   bootstrap: [AppComponent]
 })

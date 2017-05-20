@@ -7,3 +7,18 @@
     <li>Authenticate with your credentials</li>
     <li>If you have permission the app with make a remote call to a Fabric API to return patient details.</li>
 </ul>
+
+<div>
+    <button (click)="setupRolesAndPermissions()">Setup Roles and Permissions</button>
+    <div *ngIf="groupJson">
+        <pre>{{groupJson}}</pre>
+    </div>
+    <button (click)="viewPermissionsForUser()">View Permissions for the Authenticated User</button>
+    <div *ngIf="permissions">
+        <pre>{{permissions}}</pre>
+    </div> 
+    <button (click)="viewCreatedGroupsRolesAndPermissions()">View Created Groups Roles and Permissions</button>
+     <div *ngIf="groupJson2">
+        <pre>{{groupJson2}}</pre>
+    </div>
+</div>

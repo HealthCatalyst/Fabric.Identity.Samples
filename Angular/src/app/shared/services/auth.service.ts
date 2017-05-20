@@ -8,8 +8,7 @@ const clientSettings: any = {
   redirect_uri: 'http://localhost:4200/oidc-callback.html',
   post_logout_redirect_uri: 'http://localhost:4200',
   response_type: 'id_token token',
-  scope: 'openid profile fabric.profile patientapi',
-
+  scope: 'openid profile fabric.profile patientapi fabric/authorization.read fabric/authorization.write',  
   silent_redirect_uri: 'http://localhost:4200',
   automaticSilentRenew: true,
   //silentRequestTimeout:10000,

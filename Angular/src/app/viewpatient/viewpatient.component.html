@@ -2,6 +2,8 @@
 
 <p>This component demonstrates getting data from a Fabric API that requires authentication.</p>
 
+<button [disabled]="!canEditPatient">Edit Patient</button>
+
 <p *ngIf="!patientDetails && !errorMessage"><em>Loading...</em></p>
 <p *ngIf="!patientDetails && errorMessage"><em>{{errorMessage}}</em></p>
 
