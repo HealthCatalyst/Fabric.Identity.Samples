@@ -67,6 +67,7 @@ export class HomeComponent implements OnInit {
     var groups = [];
     let viewerGroup = 'FABRIC\\Health Catalyst Viewer';
     let editorGroup = 'FABRIC\\Health Catalyst Editor';
+    //TODO: move this to observable pattern (fire requests async)
     self._fabricAuthService.get(`groups/${encodeURIComponent(viewerGroup)}/roles`)
       .then(group => {
         

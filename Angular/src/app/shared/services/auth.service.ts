@@ -9,7 +9,7 @@ const clientSettings: any = {
   post_logout_redirect_uri: 'http://localhost:4200',
   response_type: 'id_token token',
   scope: 'openid profile fabric.profile patientapi fabric/authorization.read fabric/authorization.write',  
-  silent_redirect_uri: 'http://localhost:4200',
+  silent_redirect_uri: 'http://localhost:4200/silent.html',
   automaticSilentRenew: true,
   //silentRequestTimeout:10000,
 
@@ -21,7 +21,22 @@ const clientSettings: any = {
 export class AuthService {
   userManager: UserManager = new UserManager(clientSettings);
   
-  constructor() { }
+  constructor() {
+    var self = this;
+    this.userManager.events.addAccessTokenExpiring(function(){
+      console.log("access token expiring");
+    });
+
+    this.userManager.events.addSilentRenewError(function(e){
+      console.log("silent renew error", e.message);
+    });
+
+    this.userManager.events.addAccessTokenExpired(function () {
+      console.log("access token expired");    
+      //when access token expires logout the user
+      self.logout();
+    });  
+   }
 
 
   login() {

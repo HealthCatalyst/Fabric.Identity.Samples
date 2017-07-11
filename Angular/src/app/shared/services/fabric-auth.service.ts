@@ -9,17 +9,8 @@ import { Role } from '../../models/role';
 @Injectable()
 export class FabricAuthService{
     private _uriBase: string = "http://localhost:5004";
-    private _accessToken: string;
-
-    constructor(private _http: Http, private _authService: AuthService) { 
-        let self = this;
-        this._authService.getUser()
-        .then(function(user){
-            if(user){
-                self._accessToken = user.access_token;
-            }
-        });
-    }
+    
+    constructor(private _http: Http, private _authService: AuthService) { }
 
     createGroup(permission: Permission, role: Role, group: string){        
         var self = this;
@@ -74,20 +65,28 @@ export class FabricAuthService{
                 })
                 .catch(this.handleError)
                 .toPromise<T>()
-        });
-        
-    }
+        });        
+    }    
 
     post<T>(data: any, resource: string ) : Promise<T>{
         return this.getAccessToken()
         .then(token => {
-            let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this._accessToken });
+            let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
             let options = new RequestOptions({ headers: headers });
             return this._http.post(this._uriBase +'/' + resource, data, options)
                 .map((res: Response) => { return res.json()} )
                 .catch(this.handleError)
                 .toPromise<T>(); 
             });        
+    }
+
+    getObservable(resource: string){
+        return this.getAccessToken()
+        .then((token)=>{
+            let headers = new Headers({ 'Authorization': 'Bearer ' + token });
+            let options = new RequestOptions({ headers: headers });
+            return this._http.get(resource, options);
+        });    
     }
 
     private getAccessToken() : Promise<string>{

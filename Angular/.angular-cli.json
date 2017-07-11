@@ -27,6 +27,11 @@
           "glob": "oidc-callback.html",
           "input": "./",
           "output": "./"
+        },
+        {
+          "glob": "silent.html",
+          "input": "./",
+          "output": "./"
         }
       ],
       "index": "index.html",
