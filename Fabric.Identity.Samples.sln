@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Samples.Mvc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Samples.API", "API\Fabric.Identity.Samples.API.csproj", "{3A79683B-7F9C-46BB-8E99-B075F009F572}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabric.Identity.Samples.Console", "Fabric.Identity.Samples.Console\Fabric.Identity.Samples.Console.csproj", "{4DF55A55-F174-4FA3-A8B2-61915844FA28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Samples.Console", "Fabric.Identity.Samples.Console\Fabric.Identity.Samples.Console.csproj", "{4DF55A55-F174-4FA3-A8B2-61915844FA28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabric.Platform.Authorization", "Fabric.Platform.Authorization\Fabric.Platform.Authorization.csproj", "{C55B8D36-F30F-4E08-AA20-BAC93B71684B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Platform.Authorization", "Fabric.Platform.Authorization\Fabric.Platform.Authorization.csproj", "{C55B8D36-F30F-4E08-AA20-BAC93B71684B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi2", "WebApi2\WebApi2.csproj", "{BD82EA1A-B799-4E1B-BBF3-35E3B6DA874F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{C55B8D36-F30F-4E08-AA20-BAC93B71684B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C55B8D36-F30F-4E08-AA20-BAC93B71684B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C55B8D36-F30F-4E08-AA20-BAC93B71684B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD82EA1A-B799-4E1B-BBF3-35E3B6DA874F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD82EA1A-B799-4E1B-BBF3-35E3B6DA874F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD82EA1A-B799-4E1B-BBF3-35E3B6DA874F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD82EA1A-B799-4E1B-BBF3-35E3B6DA874F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
