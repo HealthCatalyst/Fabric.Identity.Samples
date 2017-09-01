@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -15,6 +16,8 @@ import { AuthService } from './shared/services/auth.service';
 import { FabricAuthService } from './shared/services/fabric-auth.service';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import { LogoutComponent } from './logout/logout.component';
       BrowserModule,
       FormsModule,
       HttpModule,
+      Ng2SmartTableModule,
       RouterModule.forRoot([
         { path: '', canActivate: [AuthGuardService],  children: [
                 { path: '', children: [
@@ -48,7 +52,8 @@ import { LogoutComponent } from './logout/logout.component';
   providers: [
       AuthGuardService,
       AuthService,
-      FabricAuthService
+      FabricAuthService,
+      DatePipe
   ],
   bootstrap: [AppComponent]
 })

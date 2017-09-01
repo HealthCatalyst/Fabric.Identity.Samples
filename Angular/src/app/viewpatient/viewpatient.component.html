@@ -2,26 +2,11 @@
 
 <p>This component demonstrates getting data from a Fabric API that requires authentication.</p>
 
-<button [disabled]="!canEditPatient">Edit Patient</button>
-
-<p *ngIf="!patientDetails && !errorMessage"><em>Loading...</em></p>
+<p *ngIf="!patientDetails && !errorMessage && hasViewPermission"><em>Loading...</em></p>
 <p *ngIf="!patientDetails && errorMessage"><em>{{errorMessage}}</em></p>
 
 <p *ngIf="!hasViewPermission">You do not have permission to view patients.<p>
 
-<table class='table' *ngIf="patientDetails">
-    <thead>
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Date of Birth</th>
-    </tr>
-    </thead>
-    <tbody>      
-    <tr *ngFor="let patient of patientDetails">
-        <td>{{ patient.firstName }}</td>
-        <td>{{ patient.lastName }}</td>
-        <td>{{ patient.dateOfBirth | date: 'shortDate' }}</td>
-    </tr>
-    </tbody>
-</table>
+<div *ngIf="patientDetails">
+    <ng2-smart-table [settings]="tableSettings"  [source]="patientDetails"></ng2-smart-table>
+<div>
