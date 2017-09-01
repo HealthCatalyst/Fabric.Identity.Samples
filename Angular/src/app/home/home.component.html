@@ -8,10 +8,9 @@
 
 
 <div *ngIf="profile">
-    <div>Role claims for user:</div>
-    <ul>
-        <li *ngFor="let claim of profile.role">{{ claim }}</li>
-    </ul>
+        <h3>User claims</h3>
+        <p>These are the claims of the user who requested the API call.</p>
+        <p>{{ profile | json }}</p>
 </div>
 
 <div>     
