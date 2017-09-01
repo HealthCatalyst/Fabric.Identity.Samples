@@ -1,18 +1,20 @@
-﻿<h1>Hello, world!</h1>
+﻿<h1>Hello, {{profile.name}}!</h1>
 <p>This is an example of an Angular app authenticating to Fabric.Identity:</p>
-
 <p>To test it out:</p>
 <ul>
-    <li>Click the <em>Login</em> button below</li>
-    <li>Authenticate with your credentials</li>
-    <li>If you have permission the app with make a remote call to a Fabric API to return patient details.</li>
+    <li>If this is the first time running the app, click <a (click)="setupRolesAndPermissions()" style="cursor: pointer">link</a> to set up roles and permissions.</li>
+    <li>Click on Patient tab to view/edit details depending on your permissions</li>
 </ul>
 
-<div>
-    <button (click)="setupRolesAndPermissions()">Setup Roles and Permissions</button>
-    <div *ngIf="groupJson">
-        <pre>{{groupJson}}</pre>
-    </div>
+
+<div *ngIf="profile">
+    <div>Role claims for user:</div>
+    <ul>
+        <li *ngFor="let claim of profile.role">{{ claim }}</li>
+    </ul>
+</div>
+
+<div>     
     <button (click)="viewPermissionsForUser()">View Permissions for the Authenticated User</button>
     <div *ngIf="permissions">
         <pre>{{permissions}}</pre>

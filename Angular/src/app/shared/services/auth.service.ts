@@ -3,7 +3,7 @@ import { UserManager, User } from 'oidc-client';
 
 
 const clientSettings: any = {
-  authority: 'http://localhost:5001/',
+  authority: 'http://localhost:5001',
   client_id: 'fabric-angularsample',
   redirect_uri: 'http://localhost:4200/oidc-callback.html',
   post_logout_redirect_uri: 'http://localhost:4200',

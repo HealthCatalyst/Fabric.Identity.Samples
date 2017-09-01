@@ -1,8 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
 import { FabricAuthService } from '../shared/services/fabric-auth.service';
+import { AuthService } from '../shared/services/auth.service';
 import { Permission } from '../models/permission';
 import { Role } from '../models/role';
+import { Group } from '../models/group';
 
 @Component({
   selector: 'app-home',
@@ -12,26 +14,28 @@ import { Role } from '../models/role';
 export class HomeComponent implements OnInit {
   groups: any[];
   permissions: string;
-  groupJson: string;
   groupJson2: string;
+  profile = {};  
 
-  constructor(private _fabricAuthService: FabricAuthService) {        
-    this.groups = [];
+  constructor(private _fabricAuthService: FabricAuthService, private _authService: AuthService) {        
     this.permissions = '';
-    this.groupJson = '';
     this.groupJson2 = '';
    }
 
   ngOnInit() {
-
-  }
+    this._authService.getUser().then(result => {
+      if (result) {
+          this.profile = result.profile;          
+      }
+    });
+  } 
 
   setupRolesAndPermissions(){
      var self = this; 
      let viewerPermission = new Permission("viewpatient", "app", "fabric-angularsample"); 
      let viewerRole = new Role('viewer', 'app', 'fabric-angularsample');
-     let viewerGroup = 'FABRIC\\Health Catalyst Viewer';
-     let editorGroup = 'FABRIC\\Health Catalyst Editor';
+     let viewerGroup = new Group('FABRIC\\Health Catalyst Viewer', 'sample');
+     let editorGroup = new Group('FABRIC\\Health Catalyst Editor', 'sample');
 
      this._fabricAuthService.createGroup(viewerPermission, viewerRole, viewerGroup)
        .then(() => {
@@ -39,18 +43,7 @@ export class HomeComponent implements OnInit {
           let editorRole = new Role('editor', 'app', 'fabric-angularsample');
            
           return self._fabricAuthService.createGroup(editorPermission, editorRole, editorGroup)
-       })
-       .then(() =>{
-          self._fabricAuthService.get(`groups/${encodeURIComponent(viewerGroup)}/roles`).then(group =>{                    
-            self.groups.push(group);            
-          });
-       }).then(() =>{
-          self._fabricAuthService.get(`groups/${encodeURIComponent(editorGroup)}/roles`).then(group =>{ 
-            self.groups.push(group);
-           self.groupJson = JSON.stringify(self.groups,null, 2)
-          });
-       })
-       ;
+       });
   }
 
   viewPermissionsForUser(){

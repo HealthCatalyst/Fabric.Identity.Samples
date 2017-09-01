@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Permission } from '../../models/permission';
 import { Role } from '../../models/role';
+import { Group } from '../../models/group';
 
 @Injectable()
 export class FabricAuthService{
@@ -12,10 +13,13 @@ export class FabricAuthService{
     
     constructor(private _http: Http, private _authService: AuthService) { }
 
-    createGroup(permission: Permission, role: Role, group: string){        
+    createGroup(permission: Permission, role: Role, group: Group){        
         var self = this;
         //create permission
-        return this.createPermission(permission)            
+        return this.addGroup(group)
+            .then(function(){
+                return self.createPermission(permission);
+            })
             .then(function(permission){                    
                 //create role
                 return self.createRole(role)           
@@ -25,12 +29,17 @@ export class FabricAuthService{
                 return self.addPermissionToRole(permission, localRole)            
             .then(function(){
                 //add role to group
-                return self.addRoleToGroup(localRole, group);
+                return self.addRoleToGroup(localRole, group.GroupName);
         });});});
     }
 
     getPermissionsForUser(): Promise<UserPermissions> {
          return this.get(`user/permissions`);
+    }
+
+    private addGroup(group){
+        let resource = 'groups'
+        return this.post<Group>(group, resource);
     }
 
     private createPermission(permission: Permission) : Promise<Permission> {       
