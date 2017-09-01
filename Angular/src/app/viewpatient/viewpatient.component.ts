@@ -11,21 +11,33 @@ import { FabricAuthService } from '../shared/services/fabric-auth.service'
   styleUrls: ['./viewpatient.component.css']
 })
 export class ViewpatientComponent implements OnInit {
-    public patientDetails: PatientDetails;
+    public patientDetails: PatientDetails[];
     public errorMessage: string;
     public authenticatedUser: User;
     public permissions: string[];
     public canEditPatient: boolean;
+    public hasViewPermission: boolean;
 
     constructor(private http: Http, private authService: AuthService, private fabricAuthService: FabricAuthService) {
         
     }
 
-     ngOnInit() {
-         this.fabricAuthService.getPermissionsForUser()
+    setUserHasViewPermission(permissions: string[]){
+        var self = this;
+        permissions.forEach(function(permission){
+            if(permission.indexOf('viewpatient') > -1)
+            {
+                self.hasViewPermission = true;
+            }
+        });
+    }
+
+    ngOnInit() {
+        this.fabricAuthService.getPermissionsForUser()
             .then(userPermissions => {
                 var permissionsObject = <UserPermissions>userPermissions;
                 this.permissions = permissionsObject.permissions; 
+                this.setUserHasViewPermission(this.permissions);
                 return this.permissions;
             }).then((permissions) =>{
                 
@@ -43,13 +55,15 @@ export class ViewpatientComponent implements OnInit {
                 let options = new RequestOptions({ headers: authHeaders });
 
                 this.http.get('http://localhost:5003/patients/123', options).subscribe(
-                    result => { this.patientDetails = result.json() as PatientDetails; },
+                    result => { this.patientDetails = result.json() as PatientDetails[]; },
                     error => { this.errorMessage = <any> error }
                 );
             })
         
         })       
     }   
+
+    
 }
 
 interface UserPermissions{

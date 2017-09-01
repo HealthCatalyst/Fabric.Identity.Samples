@@ -32,7 +32,7 @@ namespace Fabric.Identity.Samples.API.Modules
                 {
                     FirstName = "Luke",
                     LastName = "Cage",
-                    DateOfBirth = DateTime.Parse("06/12/1972")
+                    DateOfBirth = DateTime.Parse("05/29/1980")
                 }
             };
         }

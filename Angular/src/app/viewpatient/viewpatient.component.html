@@ -7,6 +7,8 @@
 <p *ngIf="!patientDetails && !errorMessage"><em>Loading...</em></p>
 <p *ngIf="!patientDetails && errorMessage"><em>{{errorMessage}}</em></p>
 
+<p *ngIf="!hasViewPermission">You do not have permission to view patients.<p>
+
 <table class='table' *ngIf="patientDetails">
     <thead>
     <tr>
@@ -15,11 +17,11 @@
         <th>Date of Birth</th>
     </tr>
     </thead>
-    <tbody>
-    <tr>
-        <td>{{ patientDetails.firstName }}</td>
-        <td>{{ patientDetails.lastName }}</td>
-        <td>{{ patientDetails.dateOfBirth }}</td>
+    <tbody>      
+    <tr *ngFor="let patient of patientDetails">
+        <td>{{ patient.firstName }}</td>
+        <td>{{ patient.lastName }}</td>
+        <td>{{ patient.dateOfBirth | date: 'shortDate' }}</td>
     </tr>
     </tbody>
 </table>
