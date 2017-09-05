@@ -16,33 +16,22 @@ export class FabricAuthService{
     createGroup(permission: Permission, role: Role, group: Group){        
         var self = this;
         //create permission
-        return this.addGroup(group)
-            .then(function(){
-                return self.createPermission(permission);
-            })
+        return this.createPermission(permission)            
             .then(function(permission){                    
                 //create role
-                return self.createRole(role)           
+                return self.createRole(role);
+            })
             .then(function(newRole){
                 let localRole = newRole;
-                //add permission to role
-                return self.addPermissionToRole(permission, localRole)            
-            .then(function(){
-                //add role to group
-                return self.addRoleToGroup(localRole, group.GroupName);
-                });
-            });
-        });
+                //add permission to role and add role to group
+                return Promise.all([self.addPermissionToRole(permission, localRole),
+                    self.addRoleToGroup(localRole, group.GroupName)]);
+            });                  
     }
 
     getPermissionsForUser(): Promise<UserPermissions> {
          return this.get(`user/permissions`);
-    }
-
-    private addGroup(group){
-        let resource = 'groups'
-        return this.post<Group>(group, resource);
-    }
+    }    
 
     private createPermission(permission: Permission) : Promise<Permission> {       
         let resource = 'permissions';

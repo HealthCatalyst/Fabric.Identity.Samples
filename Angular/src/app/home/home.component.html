@@ -3,7 +3,7 @@
 <p>To test it out:</p>
 <ul>
     <li>If this is the first time running the app, click <a (click)="setupRolesAndPermissions()" style="cursor: pointer">link</a> to set up roles and permissions.
-        <div>{{setupResult}}</div>
+        <div [className]="setupResultClassName">{{setupResult}}</div>
     </li>
     
     <li>Click on Patient tab to view/edit details depending on your permissions</li>

@@ -17,11 +17,13 @@ export class HomeComponent implements OnInit {
   groupJson: string;
   profile = {};  
   setupResult: string;
+  setupResultClassName: string;
 
   constructor(private _fabricAuthService: FabricAuthService, private _authService: AuthService) {        
     this.permissions = '';
     this.groupJson = '';
     this.setupResult = '';
+    this.setupResultClassName = '';
    }
 
   ngOnInit() {
@@ -45,6 +47,14 @@ export class HomeComponent implements OnInit {
           let editorRole = new Role('editor', 'app', 'fabric-angularsample');
            
           return self._fabricAuthService.createGroup(editorPermission, editorRole, editorGroup)
+       })
+       .then(function(){
+          self.setupResult = 'Success';
+          self.setupResultClassName = 'success';
+       })
+       .catch(function(error){
+          self.setupResult = 'Failure (see console for error)';
+          self.setupResultClassName = 'failure';
        });
   }
 
