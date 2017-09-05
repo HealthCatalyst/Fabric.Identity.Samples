@@ -36,13 +36,15 @@ export class HomeComponent implements OnInit {
 
   setupRolesAndPermissions(){
      var self = this; 
-     let viewerPermission = new Permission("viewpatient", "app", "fabric-angularsample"); 
-     let viewerRole = new Role('viewer', 'app', 'fabric-angularsample');
-     let viewerGroup = new Group('FABRIC\\Health Catalyst Viewer', 'sample');
-     let editorGroup = new Group('FABRIC\\Health Catalyst Editor', 'sample');
 
+     let viewerGroup = new Group('FABRIC\\Health Catalyst Viewer', 'custom');
+     let viewerPermission = new Permission("viewpatient", "app", "fabric-angularsample"); 
+     let viewerRole = new Role('viewer', 'app', 'fabric-angularsample');     
+     
      this._fabricAuthService.createGroup(viewerPermission, viewerRole, viewerGroup)
        .then(() => {
+
+          let editorGroup = new Group('FABRIC\\Health Catalyst Editor', 'custom');        
           let editorPermission = new Permission("editpatient", "app", "fabric-angularsample"); 
           let editorRole = new Role('editor', 'app', 'fabric-angularsample');
            

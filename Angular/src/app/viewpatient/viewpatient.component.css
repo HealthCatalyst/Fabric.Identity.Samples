@@ -6,6 +6,10 @@
     font-size: 1.25em !important; 
 }
 
+:host /deep/ a {
+    font-size: 1.25em !important; 
+}
+
 .notAllowed{
     color: red;
 }
