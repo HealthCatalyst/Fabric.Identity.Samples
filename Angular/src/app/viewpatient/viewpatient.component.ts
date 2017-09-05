@@ -23,7 +23,7 @@ export class ViewpatientComponent implements OnInit {
     public tableSettings: {};
 
     constructor(private http: Http, private authService: AuthService, private fabricAuthService: FabricAuthService, private datePipe: DatePipe) {
-        
+        this.hasEditPermission = false;
     }
 
 
@@ -32,7 +32,7 @@ export class ViewpatientComponent implements OnInit {
             return 'Edit';
         }
         else{
-            return "<div title='you do not have permission to edit patients'>Edit</div>​"
+            return "<div disabled='true' title='you do not have permission to edit patients'>Edit</div>​"
         }
     }
 
@@ -62,17 +62,16 @@ export class ViewpatientComponent implements OnInit {
             actions:{
                 add: false,
                 delete: false,
+                edit: self.hasEditPermission,
                 position: 'right'
             },
             hideSubHeader: true,
             edit:{
                 editButtonContent: self.getEditButtonContent()
             }
+            
         }
-    }
-
-   
-
+    }    
     
     setUserHasViewPermission(permissions: string[]){
         var self = this;

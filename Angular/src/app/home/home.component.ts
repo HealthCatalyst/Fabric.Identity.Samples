@@ -14,12 +14,14 @@ import { Group } from '../models/group';
 export class HomeComponent implements OnInit {
   groups: any[];
   permissions: string;
-  groupJson2: string;
+  groupJson: string;
   profile = {};  
+  setupResult: string;
 
   constructor(private _fabricAuthService: FabricAuthService, private _authService: AuthService) {        
     this.permissions = '';
-    this.groupJson2 = '';
+    this.groupJson = '';
+    this.setupResult = '';
    }
 
   ngOnInit() {
@@ -70,7 +72,7 @@ export class HomeComponent implements OnInit {
         .then(group =>{ 
       
         groups.push(group);
-        self.groupJson2 = JSON.stringify(groups, null, 2);
+        self.groupJson = JSON.stringify(groups, null, 2);
     }));
     
   }

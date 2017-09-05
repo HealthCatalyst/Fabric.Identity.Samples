@@ -5,7 +5,8 @@
 <p *ngIf="!patientDetails && !errorMessage && hasViewPermission"><em>Loading...</em></p>
 <p *ngIf="!patientDetails && errorMessage"><em>{{errorMessage}}</em></p>
 
-<p *ngIf="!hasViewPermission">You do not have permission to view patients.<p>
+<p *ngIf="!hasViewPermission" class="notAllowed">You do not have permission to view patients.</p>
+<p *ngIf="!hasEditPermission && hasViewPermission" class="notAllowed">You do not have permission to edit patients.</p>
 
 <div *ngIf="patientDetails">
     <ng2-smart-table [settings]="tableSettings"  [source]="patientDetails"></ng2-smart-table>

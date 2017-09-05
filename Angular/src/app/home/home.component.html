@@ -2,16 +2,12 @@
 <p>This is an example of an Angular app authenticating to Fabric.Identity:</p>
 <p>To test it out:</p>
 <ul>
-    <li>If this is the first time running the app, click <a (click)="setupRolesAndPermissions()" style="cursor: pointer">link</a> to set up roles and permissions.</li>
+    <li>If this is the first time running the app, click <a (click)="setupRolesAndPermissions()" style="cursor: pointer">link</a> to set up roles and permissions.
+        <div>{{setupResult}}</div>
+    </li>
+    
     <li>Click on Patient tab to view/edit details depending on your permissions</li>
 </ul>
-
-
-<div *ngIf="profile">
-        <h3>User claims</h3>
-        <p>These are the claims of the user who requested the API call.</p>
-        <p>{{ profile | json }}</p>
-</div>
 
 <div>     
     <button (click)="viewPermissionsForUser()">View Permissions for the Authenticated User</button>
@@ -20,6 +16,12 @@
     </div> 
     <button (click)="viewCreatedGroupsRolesAndPermissions()">View Created Groups Roles and Permissions</button>
      <div *ngIf="groupJson2">
-        <pre>{{groupJson2}}</pre>
+        <pre>{{groupJson}}</pre>
     </div>
+</div>
+
+<div *ngIf="profile">
+        <h3>User claims</h3>
+        <p>These are the claims of the user who requested the API call.</p>
+        <pre>{{ profile | json }}</pre>
 </div>

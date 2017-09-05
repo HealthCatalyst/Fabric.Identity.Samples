@@ -30,7 +30,9 @@ export class FabricAuthService{
             .then(function(){
                 //add role to group
                 return self.addRoleToGroup(localRole, group.GroupName);
-        });});});
+                });
+            });
+        });
     }
 
     getPermissionsForUser(): Promise<UserPermissions> {
