@@ -1,5 +1,5 @@
 ﻿import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
@@ -13,11 +13,16 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthService } from './shared/services/auth.service';
+import { ConfigService } from './shared/services/config.service';
 import { FabricAuthService } from './shared/services/fabric-auth.service';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+
+export function loadConfig(config: ConfigService) {
+    return () => config.loadConfig();
+  }
 
 @NgModule({
   declarations: [
@@ -47,13 +52,20 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
                 }
             ]
         }
-      ])
+      ])      
   ],
   providers: [
       AuthGuardService,
       AuthService,
       FabricAuthService,
-      DatePipe
+      DatePipe,
+      ConfigService,
+      {
+        provide: APP_INITIALIZER, 
+        useFactory: loadConfig, 
+        deps: [ConfigService],
+        multi: true
+      }
   ],
   bootstrap: [AppComponent]
 })
