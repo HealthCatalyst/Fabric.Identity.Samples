@@ -1,5 +1,6 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../shared/services/auth.service';
+import { LoggingService } from '../shared/services/logging.service';
 
 @Component({
   selector: 'app-navmenu',
@@ -9,7 +10,8 @@ import { AuthService } from '../shared/services/auth.service';
 export class NavmenuComponent {
     public isUserAuthenticated = false;
     public profile = {};
-    constructor(private authService: AuthService) {
+    public messages = [];
+    constructor(private authService: AuthService, private loggingService: LoggingService) {
         authService.isUserAuthenticated().then(result => {
             this.isUserAuthenticated = result;
         });
@@ -18,6 +20,7 @@ export class NavmenuComponent {
                 this.profile = result.profile;
             }
         });
+      this.messages = loggingService.messages;
     }
 
   

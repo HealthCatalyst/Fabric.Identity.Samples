@@ -34,8 +34,11 @@
               </li>
           </ul>
       </div>
-      <div class='profile' *ngIf="isUserAuthenticated">
-        <p> Hello {{profile.name}}!</p>
-      </div>
+    <div class='profile' *ngIf="isUserAuthenticated">
+      <p> Hello {{profile.name}}!</p>
+    </div>
+    <div id="debugDiv">
+      <p *ngFor="let message of messages">{{message}}</p>
+    </div>
   </div>
 </div>

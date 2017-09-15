@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
+import { LoggingService } from './logging.service'
 
 import { AuthService } from './auth.service';
 import { Permission } from '../../models/permission';
@@ -11,7 +12,7 @@ import { Group } from '../../models/group';
 export class FabricAuthService{
     private _uriBase: string = "http://localhost:5004";
     
-    constructor(private _http: Http, private _authService: AuthService) { }
+    constructor(private _http: Http, private _authService: AuthService, private _loggingService: LoggingService) { }
 
     createGroup(permission: Permission, role: Role, group: Group){        
         var self = this;
@@ -31,6 +32,7 @@ export class FabricAuthService{
     }    
 
     getPermissionsForUser(): Promise<UserPermissions> {
+         this._loggingService.log("getting user permissions");
          return this.get(`user/permissions`);
     }    
 

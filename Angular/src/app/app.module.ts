@@ -14,6 +14,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { AuthService } from './shared/services/auth.service';
 import { FabricAuthService } from './shared/services/fabric-auth.service';
+import { LoggingService } from './shared/services/logging.service';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
@@ -53,7 +54,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
       AuthGuardService,
       AuthService,
       FabricAuthService,
-      DatePipe
+      DatePipe,
+      LoggingService
   ],
   bootstrap: [AppComponent]
 })
