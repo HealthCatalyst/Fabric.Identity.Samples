@@ -4,15 +4,22 @@ import { Observable } from 'rxjs';
 import { LoggingService } from './logging.service'
 
 import { AuthService } from './auth.service';
+import { ConfigService } from './config.service';
+
 import { Permission } from '../../models/permission';
 import { Role } from '../../models/role';
 import { Group } from '../../models/group';
+import { Config } from '../../models/config';
 
 @Injectable()
 export class FabricAuthService{
-    private _uriBase: string = "http://localhost:5004";
+    private _uriBase: string;
+    private _appConfig: Config;
     
-    constructor(private _http: Http, private _authService: AuthService, private _loggingService: LoggingService) { }
+    constructor(private _http: Http, private _authService: AuthService, private _configService: ConfigService, private _loggingService: LoggingService) { 
+        this._appConfig = _configService.config;
+        this._uriBase = this._appConfig.authorization;
+    }
 
     createGroup(permission: Permission, role: Role, group: Group){        
         var self = this;
@@ -29,7 +36,22 @@ export class FabricAuthService{
                 //add role to group
                 return self.addRoleToGroup(localRole, group.GroupName);
         });});});
-    }    
+    }
+
+    // createGroup(permission: Permission, role: Role, group: Group){        
+    //     var self = this;
+    //     //create permission and role
+    //     return Promise.all([
+    //         this.createPermission(permission),
+    //         this.createRole(role)])             
+    //         .then(function(values){      
+    //             let localPermission = values[0];              
+    //             let localRole = values[1];
+    //             //add permission to role and add role to group
+    //             return Promise.all([self.addPermissionToRole(localPermission, localRole),
+    //                 self.addRoleToGroup(localRole, group.GroupName)]);
+    //         });                  
+    // }
 
     getPermissionsForUser(): Promise<UserPermissions> {
          this._loggingService.log("getting user permissions");

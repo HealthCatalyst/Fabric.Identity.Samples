@@ -1,28 +1,33 @@
 ﻿import { Injectable } from '@angular/core';
 import { UserManager, User } from 'oidc-client';
-
-
-const clientSettings: any = {
-  authority: 'http://localhost:5001',
-  client_id: 'fabric-angularsample',
-  redirect_uri: 'http://localhost:4200/oidc-callback.html',
-  post_logout_redirect_uri: 'http://localhost:4200',
-  response_type: 'id_token token',
-  scope: 'openid profile fabric.profile patientapi fabric/authorization.read fabric/authorization.write',  
-  silent_redirect_uri: 'http://localhost:4200/silent.html',
-  automaticSilentRenew: true,
-  //silentRequestTimeout:10000,
-
-  filterProtocolClaims: true,
-  loadUserInfo: true
-};
+import { ConfigService } from './config.service';
+import { Config } from '../../models/config';
 
 @Injectable()
 export class AuthService {
-  userManager: UserManager = new UserManager(clientSettings);
-  
-  constructor() {
+  userManager: UserManager; 
+  configSettings: Config;
+  identityClientSettings: any;
+
+  constructor(private configService: ConfigService) {
+    this.configSettings = configService.config;
     var self = this;
+
+    const clientSettings: any = {
+      authority: this.configSettings.authority,
+      client_id: 'fabric-angularsample',
+      redirect_uri: this.configSettings.redirectUri,
+      post_logout_redirect_uri: this.configSettings.postLogoutRedirectUri,
+      response_type: 'id_token token',
+      scope: this.configSettings.scope,  
+      silent_redirect_uri: this.configSettings.silentRedirectUri,
+      automaticSilentRenew: true,    
+      filterProtocolClaims: true,
+      loadUserInfo: true
+    };
+
+    this.userManager = new UserManager(clientSettings);
+
     this.userManager.events.addAccessTokenExpiring(function(){
       console.log("access token expiring");
     });
