@@ -10,35 +10,32 @@
       <a class='navbar-brand hc-logo' [routerLink]="['/home']"><img src="/assets/HC_logo.svg"/></a>
     </div>
     <div class='clearfix'></div>
-      <div class='navbar-collapse collapse'>
-          <ul class='nav navbar-nav'>
-              <li [routerLinkActive]="['link-active']">
-                  <a [routerLink]="['/home']">
-                      <span class='glyphicon glyphicon-home'></span> Home
-                  </a>
-              </li>
-              <li [routerLinkActive]="['link-active']">
-                  <a [routerLink]="['/viewpatient']">
-                      <span class='glyphicon glyphicon-th-list'></span> Patient
-                  </a>
-              </li>
-              <li [routerLinkActive]="['link-active']" *ngIf="!isUserAuthenticated">
-                  <a [routerLink]="['/login']">
-                      <span class='glyphicon glyphicon-th-list'></span> Login
-                  </a>
-              </li>
-              <li [routerLinkActive]="['link-active']" *ngIf="isUserAuthenticated">
-                  <a [routerLink]="['/logout']">
-                      <span class='glyphicon glyphicon-th-list'></span> Logout
-                  </a>
-              </li>
-          </ul>
-      </div>
-    <div class='profile' *ngIf="isUserAuthenticated">
-      <p> Hello {{profile.name}}!</p>
+    <div class='navbar-collapse collapse'>
+        <ul class='nav navbar-nav'>
+            <li [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/home']">
+                    <span class='glyphicon glyphicon-home'></span> Home
+                </a>
+            </li>
+            <li [routerLinkActive]="['link-active']">
+                <a [routerLink]="['/viewpatient']">
+                    <span class='glyphicon glyphicon-th-list'></span> Patient
+                </a>
+            </li>
+            <li [routerLinkActive]="['link-active']" *ngIf="!isUserAuthenticated">
+                <a [routerLink]="['/login']">
+                    <span class='glyphicon glyphicon-th-list'></span> Login
+                </a>
+            </li>
+            <li [routerLinkActive]="['link-active']" *ngIf="isUserAuthenticated">
+                <a [routerLink]="['/logout']">
+                    <span class='glyphicon glyphicon-th-list'></span> Logout
+                </a>
+            </li>
+        </ul>
     </div>
-    <div id="debugDiv">
-      <p *ngFor="let message of messages">{{message}}</p>
+    <div class='logMessages' id="debugDiv">
+      <p class='logMessage' *ngFor="let message of messages">{{message}}</p>
     </div>
   </div>
 </div>

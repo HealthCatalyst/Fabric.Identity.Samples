@@ -1,4 +1,14 @@
-﻿li .glyphicon {
+﻿.logMessages{
+  color: white;
+  padding-left: 5px;
+  overflow-y: auto;
+}
+
+.logMessage{
+  overflow-wrap: break-word;
+}
+
+li .glyphicon {
   margin-right: 10px;
 }
 
@@ -64,13 +74,7 @@ li.link-active a:focus {
     text-overflow: ellipsis;
   }
 
-  .profile {
-    border-top: 1px solid #444;
-    padding: 10px 16px;
-    color: white;
-  }
-
-  .hc-logo {
+ .hc-logo {
       height: 130px;
   }
 }

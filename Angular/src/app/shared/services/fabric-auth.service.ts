@@ -38,21 +38,6 @@ export class FabricAuthService{
         });});});
     }
 
-    // createGroup(permission: Permission, role: Role, group: Group){        
-    //     var self = this;
-    //     //create permission and role
-    //     return Promise.all([
-    //         this.createPermission(permission),
-    //         this.createRole(role)])             
-    //         .then(function(values){      
-    //             let localPermission = values[0];              
-    //             let localRole = values[1];
-    //             //add permission to role and add role to group
-    //             return Promise.all([self.addPermissionToRole(localPermission, localRole),
-    //                 self.addRoleToGroup(localRole, group.GroupName)]);
-    //         });                  
-    // }
-
     getPermissionsForUser(): Promise<UserPermissions> {
          this._loggingService.log("getting user permissions");
          return this.get(`user/permissions`);

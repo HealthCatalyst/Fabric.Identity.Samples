@@ -2,6 +2,7 @@
 import { UserManager, User } from 'oidc-client';
 import { ConfigService } from './config.service';
 import { Config } from '../../models/config';
+import { LoggingService } from './logging.service';
 
 @Injectable()
 export class AuthService {
@@ -9,7 +10,7 @@ export class AuthService {
   configSettings: Config;
   identityClientSettings: any;
 
-  constructor(private configService: ConfigService) {
+  constructor(private configService: ConfigService, private loggingService: LoggingService) {
     this.configSettings = configService.config;
     var self = this;
 
@@ -28,16 +29,16 @@ export class AuthService {
 
     this.userManager = new UserManager(clientSettings);
 
-    this.userManager.events.addAccessTokenExpiring(function(){
-      console.log("access token expiring");
+    this.userManager.events.addAccessTokenExpiring(function(){      
+      loggingService.log("access token expiring");
     });
 
     this.userManager.events.addSilentRenewError(function(e){
-      console.log("silent renew error", e.message);
+      loggingService.log("silent renew error: " + e.message);
     });
 
     this.userManager.events.addAccessTokenExpired(function () {
-      console.log("access token expired");    
+      loggingService.log("access token expired");    
       //when access token expires logout the user
       self.logout();
     });  
@@ -45,10 +46,11 @@ export class AuthService {
 
 
   login() {
+    var self = this;
     this.userManager.signinRedirect().then(() => {
-      console.log("signin redirect done");
+      self.loggingService.log("signin redirect done");
     }).catch(err => {
-      console.log(err);
+      self.loggingService.error(err);
     });
   }
 
@@ -57,14 +59,15 @@ export class AuthService {
   }
 
   handleSigninRedirectCallback() {
+    var self = this;
     this.userManager.signinRedirectCallback().then(user => {
       if (user) {
-        console.log("Logged in", user.profile);
+        self.loggingService.log("Logged in: " + JSON.stringify(user.profile));
       } else {
-        console.log("could not log user in");
+        self.loggingService.log("could not log user in");
       }
     }).catch(e => {
-      console.error(e);
+      self.loggingService.error(e);
     });
   }
 
@@ -73,12 +76,13 @@ export class AuthService {
   }
 
   isUserAuthenticated() {
+    var self = this;
     return this.userManager.getUser().then(function (user) {
       if (user) {
-        console.log("User logged in", user.profile);
+        self.loggingService.log("logging service - signin redirect done: " + JSON.stringify(user.profile));
         return true;
       } else {
-        console.log("User is not logged in");
+        self.loggingService.log("User is not logged in");
         return false;
       }
     });
