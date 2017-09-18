@@ -27,6 +27,7 @@
     "ng-http-interceptor": "^3.1.2",
     "ng2-smart-table": "^1.2.1",
     "oidc-client": "^1.2.2",
+    "proxy-polyfill": "^0.1.7",
     "rxjs": "^5.1.0",
     "tslib": "^1.7.1",
     "zone.js": "^0.8.4"
