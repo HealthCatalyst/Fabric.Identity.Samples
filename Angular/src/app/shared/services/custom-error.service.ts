@@ -10,7 +10,7 @@ export class CustomErrorService extends ErrorHandler {
   }
 
   handleError(error): void {
-     this.loggingService.error(error.message);
+     this.loggingService.error(error.originalStack || error.message);
      super.handleError(error);
   }
 }

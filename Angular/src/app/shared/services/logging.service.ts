@@ -7,24 +7,33 @@ export class LoggingService {
 
   messages: string[] = [];
 
-  debug(message: string) {
-    console.debug(message);
-    this.writeToNavPane(message);
+  debug(...logmessages) {
+    console.debug(logmessages);
+    this.processMessages(logmessages);
   }
 
-  log(message: string) {
-    console.log(message);
-    this.writeToNavPane(message);
+  log(...logmessages) {
+    console.log(logmessages);
+    this.processMessages(logmessages);
   }
 
-  warn(message: string) {
-    console.warn(message);
-    this.writeToNavPane(message);
+  warn(...logmessages) {
+    console.warn(logmessages);
+    this.processMessages(logmessages);
   }
 
-  error(message: string) {
-    console.error(message);
-    this.writeToNavPane(message);
+  error(...logmessages) {
+    console.error(logmessages);
+    this.processMessages(logmessages);
+  }
+
+  processMessages(...logmessages) {
+    for (var message of logmessages) {
+      if (typeof message === "object") {
+        message = JSON.stringify(message)
+      }
+      this.writeToNavPane(message);
+    }
   }
 
   writeToNavPane(message: string) {
