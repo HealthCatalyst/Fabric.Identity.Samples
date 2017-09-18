@@ -35,7 +35,9 @@
         </ul>
     </div>
     <div class='logMessages' id="debugDiv">
-      <p class='logMessage' *ngFor="let message of messages">{{message}}</p>
+      <div  *ngFor="let message of messages">
+         <pre class='logMessage'>{{message}}</pre>
+      </div>
     </div>
   </div>
 </div>

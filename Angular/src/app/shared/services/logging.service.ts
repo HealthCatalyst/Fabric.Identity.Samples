@@ -30,13 +30,13 @@ export class LoggingService {
   processMessages(...logmessages) {
     for (var message of logmessages) {
       if (typeof message === "object") {
-        message = JSON.stringify(message)
+        message = JSON.stringify(message, null, 2)
       }
       this.writeToNavPane(message);
     }
   }
 
-  writeToNavPane(message: string) {
+  writeToNavPane(message: string) {    
     this.messages.push(message);
   }
 }
