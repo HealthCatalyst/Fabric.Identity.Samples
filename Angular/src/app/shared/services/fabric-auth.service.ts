@@ -68,11 +68,18 @@ export class FabricAuthService{
         .then((token)=>{
             let headers = new Headers({ 'Authorization': 'Bearer ' + token });
             let options = new RequestOptions({ headers: headers });
-            return this._http.get(this._uriBase +'/' + resource, options)
+            let requestUrl = this._uriBase + '/' + resource;
+            this._loggingService.log('Request:');
+            this._loggingService.log('  URL: ' + requestUrl);
+            this._loggingService.log('  Headers:');
+            this._loggingService.log(headers);
+            return this._http.get(requestUrl, options)
                 .map((res: Response) => {
+                this._loggingService.log('Response:')
+                this._loggingService.log(res);
                 return res.json();
                 })
-                .catch(this.handleError)
+              .catch(this.handleError)
                 .toPromise<T>()
         });        
     }    
@@ -82,11 +89,20 @@ export class FabricAuthService{
         .then(token => {
             let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
             let options = new RequestOptions({ headers: headers });
-            return this._http.post(this._uriBase +'/' + resource, data, options)
-                .map((res: Response) => { return res.json()} )
-                .catch(this.handleError)
-                .toPromise<T>(); 
-            });        
+            let requestUrl = this._uriBase + '/' + resource;
+            this._loggingService.log('Request:');
+            this._loggingService.log('  URL: ' + requestUrl);
+            this._loggingService.log('  Headers:');
+            this._loggingService.log(headers);
+            return this._http.post(requestUrl, data, options)
+              .map((res: Response) => {
+                this._loggingService.log('Response:')
+                this._loggingService.log(res);
+                return res.json();
+              })
+              .catch(this.handleError)
+              .toPromise<T>();
+          });        
     }
 
     getObservable(resource: string){
