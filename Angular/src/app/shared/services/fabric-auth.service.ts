@@ -124,9 +124,10 @@ export class FabricAuthService{
             });
     }
 
-    private handleError (error: Response | any) {        
-        this._loggingService.error(error.message);	    
-	    return Observable.throw(error.message || error);
+    private handleError (error: Response | any) {
+      this._loggingService.error('Error Response:');
+      this._loggingService.error(error.message || error);
+      return Observable.throw(error.message || error);
     }
 }
 interface UserPermissions{
