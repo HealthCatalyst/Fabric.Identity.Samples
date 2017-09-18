@@ -16,6 +16,11 @@
   font-size: 12px;
 }
 
+.logMessageAction{
+  text-align: right;
+  cursor: pointer;
+}
+
 li .glyphicon {
   margin-right: 10px;
 }
