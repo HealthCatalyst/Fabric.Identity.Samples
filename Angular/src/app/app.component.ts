@@ -1,4 +1,6 @@
 ﻿import { Component } from '@angular/core';
+import { HttpInterceptorService } from 'ng-http-interceptor';
+import { LoggingService } from 'app/shared/services/logging.service';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +8,16 @@
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  constructor(private _httpInterceptor: HttpInterceptorService, private _loggingService: LoggingService){
+    _httpInterceptor.request().addInterceptor((data, method) => {
+      _loggingService.log(data);
+      return data;
+    });    
+
+    _httpInterceptor.response().addInterceptor((res, method) => {
+      return res.do(r => _loggingService.log(r));
+    });
+  }
+
 }

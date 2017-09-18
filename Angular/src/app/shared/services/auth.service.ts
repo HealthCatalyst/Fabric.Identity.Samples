@@ -79,7 +79,8 @@ export class AuthService {
     var self = this;
     return this.userManager.getUser().then(function (user) {
       if (user) {
-        self.loggingService.log("logging service - signin redirect done: " + JSON.stringify(user.profile));
+        self.loggingService.log("logging service - signin redirect done. ");
+        self.loggingService.log(user.profile);
         return true;
       } else {
         self.loggingService.log("User is not logged in");

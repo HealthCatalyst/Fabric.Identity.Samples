@@ -24,9 +24,11 @@
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "jquery": "^2.2.1",
+    "ng-http-interceptor": "^3.1.2",
     "ng2-smart-table": "^1.2.1",
     "oidc-client": "^1.2.2",
     "rxjs": "^5.1.0",
+    "tslib": "^1.7.1",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

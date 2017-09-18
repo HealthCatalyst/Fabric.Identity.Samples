@@ -23,6 +23,8 @@ import { LogoutComponent } from './logout/logout.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { CustomErrorService } from './shared/services/custom-error.service'
 
+import {HttpInterceptorModule } from 'ng-http-interceptor';
+
 export function loadConfig(config: ConfigService) {
     return () => config.loadConfig();
   }
@@ -55,7 +57,8 @@ export function loadConfig(config: ConfigService) {
                 }
             ]
         }
-      ])      
+      ]),
+      HttpInterceptorModule
   ],
   providers: [
       AuthGuardService,

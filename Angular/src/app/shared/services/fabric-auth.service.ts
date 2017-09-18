@@ -68,15 +68,9 @@ export class FabricAuthService{
         .then((token)=>{
             let headers = new Headers({ 'Authorization': 'Bearer ' + token });
             let options = new RequestOptions({ headers: headers });
-            let requestUrl = this._uriBase + '/' + resource;
-            this._loggingService.log('Request:');
-            this._loggingService.log('  URL: ' + requestUrl);
-            this._loggingService.log('  Headers:');
-            this._loggingService.log(headers);
+            let requestUrl = this._uriBase + '/' + resource;           
             return this._http.get(requestUrl, options)
-                .map((res: Response) => {
-                this._loggingService.log('Response:')
-                this._loggingService.log(res);                                
+                .map((res: Response) => {                                         
                 return res.json();
                 })
                 .catch(error => this.handleError(error))
@@ -89,15 +83,9 @@ export class FabricAuthService{
         .then(token => {
             let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
             let options = new RequestOptions({ headers: headers });
-            let requestUrl = this._uriBase + '/' + resource;
-            this._loggingService.log('Request:');
-            this._loggingService.log('  URL: ' + requestUrl);
-            this._loggingService.log('  Headers:');
-            this._loggingService.log(headers);
+            let requestUrl = this._uriBase + '/' + resource;           
             return this._http.post(requestUrl, data, options)
-              .map((res: Response) => {
-                this._loggingService.log('Response:')
-                this._loggingService.log(res);
+              .map((res: Response) => {               
                 return res.json();
               })
               .catch(error => this.handleError(error))
