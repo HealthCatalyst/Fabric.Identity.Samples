@@ -38,8 +38,8 @@ export class FabricAuthService{
         });});});
     }
 
-    getPermissionsForUser(): Promise<UserPermissions> {
-         return this.get(`user/permissions`);
+    getPermissionsForUser(): Promise<UserPermissions> {       
+        return this.get(`user/permissions`);
     }    
 
     private createPermission(permission: Permission) : Promise<Permission> {       
@@ -76,10 +76,10 @@ export class FabricAuthService{
             return this._http.get(requestUrl, options)
                 .map((res: Response) => {
                 this._loggingService.log('Response:')
-                this._loggingService.log(res);
+                this._loggingService.log(res);                                
                 return res.json();
                 })
-              .catch(this.handleError)
+                .catch(error => this.handleError(error))
                 .toPromise<T>()
         });        
     }    
@@ -100,7 +100,7 @@ export class FabricAuthService{
                 this._loggingService.log(res);
                 return res.json();
               })
-              .catch(this.handleError)
+              .catch(error => this.handleError(error))
               .toPromise<T>();
           });        
     }
@@ -124,8 +124,8 @@ export class FabricAuthService{
             });
     }
 
-    private handleError (error: Response | any) {
-	    console.error(error.message || error);
+    private handleError (error: Response | any) {        
+        this._loggingService.error(error.message);	    
 	    return Observable.throw(error.message || error);
     }
 }
