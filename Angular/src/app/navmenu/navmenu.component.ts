@@ -23,5 +23,10 @@ export class NavmenuComponent {
       this.messages = loggingService.messages;
     }
 
+    clearLogs() {
+      this.loggingService.clear();
+      this.messages = this.loggingService.messages;
+    }
+
   
 }
