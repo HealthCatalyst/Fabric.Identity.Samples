@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { ErrorHandler } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -20,6 +21,7 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { CustomErrorService } from './shared/services/custom-error.service'
 
 export function loadConfig(config: ConfigService) {
     return () => config.loadConfig();
@@ -67,7 +69,8 @@ export function loadConfig(config: ConfigService) {
         deps: [ConfigService],
         multi: true
       },
-      LoggingService
+      LoggingService,
+      {provide: ErrorHandler, useClass: CustomErrorService}
   ],
   bootstrap: [AppComponent]
 })

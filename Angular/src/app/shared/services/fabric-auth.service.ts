@@ -39,7 +39,6 @@ export class FabricAuthService{
     }
 
     getPermissionsForUser(): Promise<UserPermissions> {
-         this._loggingService.log("getting user permissions");
          return this.get(`user/permissions`);
     }    
 
