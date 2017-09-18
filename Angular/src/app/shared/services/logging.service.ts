@@ -27,6 +27,10 @@ export class LoggingService {
     this.processMessages(logmessages);
   }
 
+  clear() {
+    this.messages = [];
+  }
+
   processMessages(...logmessages) {
     for (var message of logmessages) {
       for (var innerMessage of message) {
