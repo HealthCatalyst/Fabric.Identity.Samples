@@ -1,8 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Response, Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
-import { LoggingService } from './logging.service'
 
+import { HttpInterceptor } from './custom-http.service';
+import { LoggingService } from './logging.service'
 import { AuthService } from './auth.service';
 import { ConfigService } from './config.service';
 

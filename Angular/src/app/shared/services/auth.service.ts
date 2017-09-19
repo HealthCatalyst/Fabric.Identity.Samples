@@ -1,7 +1,11 @@
 ﻿import { Injectable } from '@angular/core';
+import { Response, Http, Headers, RequestOptions } from '@angular/http';
 import { UserManager, User } from 'oidc-client';
+import { Observable } from 'rxjs';
+
 import { ConfigService } from './config.service';
 import { Config } from '../../models/config';
+import { Client } from '../../models/client';
 import { LoggingService } from './logging.service';
 
 @Injectable()
@@ -9,14 +13,16 @@ export class AuthService {
   userManager: UserManager; 
   configSettings: Config;
   identityClientSettings: any;
+  clientId: string;
 
-  constructor(private configService: ConfigService, private loggingService: LoggingService) {
+  constructor(private configService: ConfigService, private loggingService: LoggingService, private http: Http) {
     this.configSettings = configService.config;
+    this.clientId = 'fabric-angularsample';
     var self = this;
 
     const clientSettings: any = {
       authority: this.configSettings.authority,
-      client_id: 'fabric-angularsample',
+      client_id: this.clientId,
       redirect_uri: this.configSettings.redirectUri,
       post_logout_redirect_uri: this.configSettings.postLogoutRedirectUri,
       response_type: 'id_token token',
@@ -89,6 +95,41 @@ export class AuthService {
     });
   }
   
+  getClientInfo(): Promise<Client>{
+    let resource = 'api/client/' + this.clientId
+    return this.get<Client>(resource)
+  }
+
+  private getAccessToken() : Promise<string>{
+    let self = this;
+    return this.getUser()
+       .then(function(user){           
+       if(user){
+            return Promise.resolve(user.access_token);
+           }
+       });
+  }
+
+  private handleError (error: Response | any) {
+    this.loggingService.error('Error Response:');
+    this.loggingService.error(error.message || error);
+    return Observable.throw(error.message || error);
+  }
+
+  get<T>(resource: string) : Promise<T>{
+    return this.getAccessToken()
+    .then((token)=>{
+        let headers = new Headers({ 'Authorization': 'Bearer ' + token });
+        let options = new RequestOptions({ headers: headers });
+        let requestUrl = this.configSettings.authority + '/' + resource;           
+        return this.http.get(requestUrl, options)
+            .map((res: Response) => {                                         
+            return res.json();
+            })
+            .catch(error => this.handleError(error))
+            .toPromise<T>()
+    });        
+} 
 
 }
 

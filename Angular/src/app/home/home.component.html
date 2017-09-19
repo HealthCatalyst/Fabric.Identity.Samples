@@ -25,3 +25,9 @@
         <p>These are the claims of the user who requested the API call.</p>
         <pre>{{ profile | json }}</pre>
 </div>
+<div>
+    <button (click)="getClientInfo()">Get Client Info</button>
+    <div *ngIf="client">
+        <pre>{{client}}</pre>
+    </div>
+</div>

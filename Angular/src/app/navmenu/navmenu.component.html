@@ -34,12 +34,13 @@
             </li>
         </ul>
     </div>
-    <div class='logMessages' id="debugDiv">
-      <div class='logMessageAction'>
-        <a (click)="clearLogs()">Clear Logs</a></div>
-      <div *ngFor="let message of messages">
-        <pre class='logMessage'>{{message}}</pre>
-      </div>
+    <div class='logMessageAction'>
+        <a (click)="clearLogs()">Clear Logs</a>   
+    </div>
+    <div class='logMessages' id="debugDiv">       
+        <div *ngFor="let message of messages">
+            <pre class='logMessage'>{{message}}</pre>
+        </div>
     </div>
   </div>
 </div>

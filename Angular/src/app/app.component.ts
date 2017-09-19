@@ -19,18 +19,19 @@ export class AppComponent {
 
         data[1] = requestObject;
       }
-      
+
       _loggingService.log(data);
       return data;
     });    
 
     _httpInterceptor.response().addInterceptor((res, method) => {
-      return res.do(r => _loggingService.log(r));
+      return res.do(r => this.formatResponse(r, method));
     });
+    
   }
 
   formatResponse(res, method){
-    
+    this._loggingService.log(res);
   }
 
 }

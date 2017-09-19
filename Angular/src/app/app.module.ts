@@ -1,7 +1,7 @@
 ﻿import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ErrorHandler } from '@angular/core';
@@ -21,9 +21,10 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { CustomErrorService } from './shared/services/custom-error.service'
+import { CustomErrorService } from './shared/services/custom-error.service';
 
-import {HttpInterceptorModule } from 'ng-http-interceptor';
+import { HttpInterceptorModule } from 'ng-http-interceptor';
+import { HttpInterceptor } from './shared/services/custom-http.service';
 
 export function loadConfig(config: ConfigService) {
     return () => config.loadConfig();
@@ -73,7 +74,14 @@ export function loadConfig(config: ConfigService) {
         multi: true
       },
       LoggingService,
-      {provide: ErrorHandler, useClass: CustomErrorService}
+      {provide: ErrorHandler, useClass: CustomErrorService},
+      {
+        provide: HttpInterceptor,
+        useFactory: (backend: XHRBackend, options: RequestOptions, loggingService: LoggingService) => {
+          return new HttpInterceptor(backend, options, loggingService);
+        },
+        deps: [XHRBackend, RequestOptions]
+      }
   ],
   bootstrap: [AppComponent]
 })

@@ -5,6 +5,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { Permission } from '../models/permission';
 import { Role } from '../models/role';
 import { Group } from '../models/group';
+import { Client } from '../models/client';
 
 @Component({
   selector: 'app-home',
@@ -18,12 +19,14 @@ export class HomeComponent implements OnInit {
   profile = {};  
   setupResult: string;
   setupResultClassName: string;
+  client: string;
 
   constructor(private _fabricAuthService: FabricAuthService, private _authService: AuthService) {        
     this.permissions = '';
     this.groupJson = '';
     this.setupResult = '';
     this.setupResultClassName = '';
+    this.client = '';
    }
 
   ngOnInit() {
@@ -87,6 +90,14 @@ export class HomeComponent implements OnInit {
         self.groupJson = JSON.stringify(groups, null, 2);
     }));
     
+  }
+
+  getClientInfo(){
+    var self = this; 
+    this._authService.getClientInfo()
+    .then(client => {
+      self.client = JSON.stringify(client, null, 2);
+    });
   }
  
 }
