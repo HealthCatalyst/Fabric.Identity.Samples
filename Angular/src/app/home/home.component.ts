@@ -99,5 +99,9 @@ export class HomeComponent implements OnInit {
       self.client = JSON.stringify(client, null, 2);
     });
   }
+
+  clearAuthenticationCache(){
+    document.execCommand('ClearAuthenticationCache', false);
+  }
  
 }
