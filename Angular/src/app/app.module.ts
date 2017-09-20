@@ -28,7 +28,11 @@ import { HttpInterceptor } from './shared/services/custom-http.service';
 
 export function loadConfig(config: ConfigService) {
     return () => config.loadConfig();
-  }
+}
+
+export function createInterceptor(backend: XHRBackend, options: RequestOptions, loggingService: LoggingService) {
+  return new HttpInterceptor(backend, options, loggingService);
+}
 
 @NgModule({
   declarations: [
@@ -77,9 +81,7 @@ export function loadConfig(config: ConfigService) {
       {provide: ErrorHandler, useClass: CustomErrorService},
       {
         provide: HttpInterceptor,
-        useFactory: (backend: XHRBackend, options: RequestOptions, loggingService: LoggingService) => {
-          return new HttpInterceptor(backend, options, loggingService);
-        },
+        useFactory: createInterceptor,
         deps: [XHRBackend, RequestOptions]
       }
   ],
