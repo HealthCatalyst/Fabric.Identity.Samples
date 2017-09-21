@@ -1,12 +1,13 @@
 ﻿import { Injectable } from '@angular/core';
 import { Response, Http, Headers, RequestOptions } from '@angular/http';
-import { UserManager, User } from 'oidc-client';
+import { UserManager, User, Log} from 'oidc-client';
 import { Observable } from 'rxjs';
 
 import { ConfigService } from './config.service';
 import { Config } from '../../models/config';
 import { Client } from '../../models/client';
 import { LoggingService } from './logging.service';
+
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,9 @@ export class AuthService {
   constructor(private configService: ConfigService, private loggingService: LoggingService, private http: Http) {
     this.configSettings = configService.config;
     this.clientId = 'fabric-angularsample';
+    
+    Log.logger = loggingService;    
+    
     var self = this;
 
     const clientSettings: any = {
@@ -33,7 +37,7 @@ export class AuthService {
       loadUserInfo: true
     };
 
-    this.userManager = new UserManager(clientSettings);
+    this.userManager = new UserManager(clientSettings);    
 
     this.userManager.events.addAccessTokenExpiring(function(){      
       loggingService.log("access token expiring");
@@ -85,7 +89,7 @@ export class AuthService {
     var self = this;
     return this.userManager.getUser().then(function (user) {
       if (user) {
-        self.loggingService.log("logging service - signin redirect done. ");
+        self.loggingService.log("signin redirect done. ");
         self.loggingService.log(user.profile);
         return true;
       } else {

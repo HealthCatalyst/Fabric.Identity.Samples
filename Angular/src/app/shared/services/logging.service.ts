@@ -17,6 +17,11 @@ export class LoggingService {
     this.processMessages(logmessages);
   }
 
+  info(... logmessages) {
+    console.info(logmessages);
+    this.processMessages(logmessages);
+  }
+
   warn(...logmessages) {
     console.warn(logmessages);
     this.processMessages(logmessages);
