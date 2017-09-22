@@ -3,6 +3,6 @@
     "authorization": "http://localhost:5004",
     "redirectUri": "http://localhost:4200/oidc-callback.html",
     "postLogoutRedirectUri": "http://localhost:4200",    
-    "scope": "openid profile fabric.profile patientapi fabric/authorization.read fabric/authorization.write fabric/identity.manageresources",  
+    "scope": "openid profile fabric.profile patientapi fabric/authorization.read fabric/authorization.write fabric/identity.manageresources fabric/identity.read",  
     "silentRedirectUri": "http://localhost:4200/silent.html"
 }
