@@ -6,7 +6,7 @@ import { LoggingService } from './logging.service';
 export class CustomErrorService extends ErrorHandler {
 
   constructor(private loggingService: LoggingService) {
-    super(false);
+    super();
   }
 
   handleError(error): void {
