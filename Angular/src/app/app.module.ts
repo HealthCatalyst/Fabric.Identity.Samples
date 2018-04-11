@@ -2,6 +2,7 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ErrorHandler } from '@angular/core';
@@ -22,16 +23,10 @@ import { LogoutComponent } from './logout/logout.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { CustomErrorService } from './shared/services/custom-error.service';
-
-import { HttpInterceptorModule } from 'ng-http-interceptor';
-import { HttpInterceptor } from './shared/services/custom-http.service';
+import { httpInterceptorProviders } from './shared/interceptors';
 
 export function loadConfig(config: ConfigService) {
     return () => config.loadConfig();
-}
-
-export function createInterceptor(backend: XHRBackend, options: RequestOptions, loggingService: LoggingService) {
-  return new HttpInterceptor(backend, options, loggingService);
 }
 
 @NgModule({
@@ -48,6 +43,7 @@ export function createInterceptor(backend: XHRBackend, options: RequestOptions, 
       BrowserModule,
       FormsModule,
       HttpModule,
+      HttpClientModule,
       Ng2SmartTableModule,
       RouterModule.forRoot([
         { path: '', canActivate: [AuthGuardService],  children: [
@@ -57,13 +53,13 @@ export function createInterceptor(backend: XHRBackend, options: RequestOptions, 
                     { path: 'viewpatient', component: ViewpatientComponent },
                     { path: 'unauthorized', component: UnauthorizedComponent },
                     { path: 'login', component: LoginComponent },
-                    { path: 'logout', component: LogoutComponent }
+                    { path: 'logout', component: LogoutComponent },
+                    { path: 'accesscontrol',  loadChildren: './access-control-lazy-loader#AccessControlLazyLoader' }
                 ]
                 }
             ]
         }
-      ]),
-      HttpInterceptorModule
+      ])
   ],
   providers: [
       AuthGuardService,
@@ -79,11 +75,7 @@ export function createInterceptor(backend: XHRBackend, options: RequestOptions, 
       },
       LoggingService,
       {provide: ErrorHandler, useClass: CustomErrorService},
-      {
-        provide: HttpInterceptor,
-        useFactory: createInterceptor,
-        deps: [XHRBackend, RequestOptions]
-      }
+      httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

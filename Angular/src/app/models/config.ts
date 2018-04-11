@@ -5,4 +5,7 @@ export class Config{
     postLogoutRedirectUri: string;    
     scope: string;
     silentRedirectUri: string;
+    idpSearchService: string;
+    fabricAuthApiVersionSegment: string;
+    fabricExternalIdPSearchApiVersionSegment: string;
 }

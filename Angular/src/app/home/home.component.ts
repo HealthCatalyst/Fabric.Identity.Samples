@@ -16,10 +16,11 @@ export class HomeComponent implements OnInit {
   groups: any[];
   permissions: string;
   groupJson: string;
-  profile = {};  
+  profile: any = {};  
   setupResult: string;
   setupResultClassName: string;
   client: string;
+  name: string;
 
   constructor(private _fabricAuthService: FabricAuthService, private _authService: AuthService) {        
     this.permissions = '';
@@ -32,7 +33,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this._authService.getUser().then(result => {
       if (result) {
-          this.profile = result.profile;          
+          this.profile = result.profile;      
+          this.name = this.profile.name;    
       }
     });
   } 

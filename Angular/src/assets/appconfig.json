@@ -1,8 +1,12 @@
 {
-    "authority": "http://localhost:5001",    
-    "authorization": "http://localhost:5004",
+    "authority": "http://localhost/identity",    
+    "authorization": "http://localhost/authorization",
     "redirectUri": "http://localhost:4200/oidc-callback.html",
     "postLogoutRedirectUri": "http://localhost:4200",    
     "scope": "openid profile fabric.profile patientapi fabric/authorization.read fabric/authorization.write fabric/identity.manageresources fabric/identity.read fabric/authorization.manageclients",  
-    "silentRedirectUri": "http://localhost:4200/silent.html"
+    "silentRedirectUri": "http://localhost:4200/silent.html",
+    "idpSearchService": "http://localhost:5009",
+    "fabricAuthApiVersionSegment": "v1",
+    "fabricExternalIdPSearchApiVersionSegment": "v1"
+
 }
