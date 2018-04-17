@@ -82,7 +82,7 @@ namespace Fabric.Identity.InteractiveConsole
             {
                 throw new Exception($"Couldn't get discovery document: {discoveryResponse.Error}");
             }
-            var tokenClient = new TokenClient(discoveryResponse.TokenEndpoint, "fabric-installer", installerSecret);
+            var tokenClient = new TokenClient(discoveryResponse.TokenEndpoint, "fabric-installer", installerSecret, null, AuthenticationStyle.PostValues);
             var tokenResponse = await tokenClient.RequestClientCredentialsAsync("fabric/identity.manageresources");
             return tokenResponse.AccessToken;
         }
