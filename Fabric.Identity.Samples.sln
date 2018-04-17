@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.4
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0E149F8C-46FF-49BD-8308-848DDE2AC586}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Platform.Authorization", "Fabric.Platform.Authorization\Fabric.Platform.Authorization.csproj", "{C55B8D36-F30F-4E08-AA20-BAC93B71684B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi2", "WebApi2\WebApi2.csproj", "{BD82EA1A-B799-4E1B-BBF3-35E3B6DA874F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabric.Identity.InteractiveConsole", "Fabric.Identity.InteractiveConsole\Fabric.Identity.InteractiveConsole.csproj", "{10D2CE65-B32D-4BF5-807D-3597978EF1DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,8 +47,15 @@ Global
 		{BD82EA1A-B799-4E1B-BBF3-35E3B6DA874F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD82EA1A-B799-4E1B-BBF3-35E3B6DA874F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD82EA1A-B799-4E1B-BBF3-35E3B6DA874F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10D2CE65-B32D-4BF5-807D-3597978EF1DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10D2CE65-B32D-4BF5-807D-3597978EF1DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10D2CE65-B32D-4BF5-807D-3597978EF1DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10D2CE65-B32D-4BF5-807D-3597978EF1DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {90E3E3A6-CD14-44C1-A01F-8120AE3C0048}
 	EndGlobalSection
 EndGlobal
