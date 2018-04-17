@@ -101,7 +101,7 @@ namespace Fabric.Identity.InteractiveConsole
         private static async Task SignIn(AppConfiguration configuration)
         {
 
-            var port = 5002;
+            var port = configuration.Port;
             var browser = new Browser(_uriPath, configuration);
             string redirectUri = $"{configuration.HostBaseUri}:{port}/{_uriPath}";
 
