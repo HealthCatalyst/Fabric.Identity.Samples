@@ -33,7 +33,14 @@ class AccessControlConfig implements IAccessControlConfigService {
 
 @NgModule({
   imports: [
-    AccessControlModule.forRoot(AccessControlConfig)
+    AccessControlModule
+  ],
+  providers: [
+        {provide: 'IAccessControlConfigService', useClass: AccessControlConfig}
   ]
 })
-export class AccessControlLazyLoader {}
+export class AccessControlLazyLoader {
+  constructor() {
+    console.log('lazy loaded');
+  }
+}
