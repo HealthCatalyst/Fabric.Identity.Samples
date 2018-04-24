@@ -29,6 +29,12 @@ export function loadConfig(config: ConfigService) {
     return () => config.loadConfig();
 }
 
+export class Config {
+    AuthUrl = 'http://localhost/authorization';
+    IdpSearchUrl = 'http://localhost/idpsearchservice';
+    IdentityUrl = 'http://localhost/identity';
+  }
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +60,7 @@ export function loadConfig(config: ConfigService) {
                     { path: 'unauthorized', component: UnauthorizedComponent },
                     { path: 'login', component: LoginComponent },
                     { path: 'logout', component: LogoutComponent },
-                    { path: 'accesscontrol',  loadChildren: './access-control-lazy-loader#AccessControlLazyLoader' }
+                    { path: 'access-control',  loadChildren: './access-control-lazy-loader#AccessControlLazyLoader' }
                 ]
                 }
             ]
@@ -75,10 +81,11 @@ export function loadConfig(config: ConfigService) {
       },
       LoggingService,
       {provide: ErrorHandler, useClass: CustomErrorService},
-      httpInterceptorProviders
+      httpInterceptorProviders,
+      Config
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  
+
 }
