@@ -16,7 +16,7 @@ namespace WebApi2
             app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
             {
                 Authority = "http://localhost:5001",
-                RequiredScopes = new[] {"webapi2"}
+                RequiredScopes = new[] {"sample-api"}
             });
 
 
