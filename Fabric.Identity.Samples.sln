@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Platform.Authorizati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi2", "WebApi2\WebApi2.csproj", "{BD82EA1A-B799-4E1B-BBF3-35E3B6DA874F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabric.Identity.InteractiveConsole", "Fabric.Identity.InteractiveConsole\Fabric.Identity.InteractiveConsole.csproj", "{10D2CE65-B32D-4BF5-807D-3597978EF1DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.InteractiveConsole", "Fabric.Identity.InteractiveConsole\Fabric.Identity.InteractiveConsole.csproj", "{10D2CE65-B32D-4BF5-807D-3597978EF1DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleAPI", "SampleAPI\SampleAPI.csproj", "{9BBC2EB3-9F61-4F6A-A384-ECF13FE1DC4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{10D2CE65-B32D-4BF5-807D-3597978EF1DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10D2CE65-B32D-4BF5-807D-3597978EF1DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10D2CE65-B32D-4BF5-807D-3597978EF1DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BBC2EB3-9F61-4F6A-A384-ECF13FE1DC4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BBC2EB3-9F61-4F6A-A384-ECF13FE1DC4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BBC2EB3-9F61-4F6A-A384-ECF13FE1DC4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BBC2EB3-9F61-4F6A-A384-ECF13FE1DC4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
