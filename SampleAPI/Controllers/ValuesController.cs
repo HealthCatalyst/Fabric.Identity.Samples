@@ -27,7 +27,7 @@ namespace SampleAPI.Controllers
         {
             var identityUrl = "http://localhost:5001";
             var clientId = "sample-api-client";
-            var clientSecret = "secret";
+            var clientSecret = "{replace-me}";
 
             var discoveryResponse = await DiscoveryClient.GetAsync(identityUrl);
             if (discoveryResponse.IsError)
@@ -35,7 +35,7 @@ namespace SampleAPI.Controllers
                 throw new Exception($"Could not get discovery document from Fabric.Identity at {identityUrl}. Error is: {discoveryResponse.Error}.");
             }
             var tokenClient = new TokenClient(discoveryResponse.TokenEndpoint, clientId, clientSecret);
-            var tokenResponse = await tokenClient.RequestClientCredentialsAsync("fabric/identity.read");
+            var tokenResponse = await tokenClient.RequestClientCredentialsAsync("fabric/identity.manageresources");
 
             if (tokenResponse.IsError)
             {

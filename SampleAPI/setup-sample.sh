@@ -3,17 +3,14 @@ identitybaseurl=http://localhost:5001
 
 docker stop api-sample-identity
 docker rm api-sample-identity
-docker network rm api-sample-identity
 
 docker pull healthcatalyst/fabric.identity
 
 docker run -d --name api-sample-identity \
 	-p 5001:5001 \
 	-e "HostingOptions__StorageProvider=InMemory" \
-	-e "HostingOptions__AllowUnsafeEval=true" \
 	-e "IssuerUri=$identitybaseurl" \
 	-e "IDENTITYSERVERCONFIDENTIALCLIENTSETTINGS__AUTHORITY=$identitybaseurl" \
-	--network="authz-functional-tests" \
 	healthcatalyst/fabric.identity
 echo "started identity"
 sleep 3
@@ -46,7 +43,7 @@ echo ""
 
 # register sample api client
 echo "registering Sample API Client..."
-sampleapiclientresponse=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $accesstoken" -d "{ \"clientId\": \"sample-api-client\", \"clientName\": \"Sample API Client\", \"requireConsent\": false, \"allowedGrantTypes\": [\"client_credentials\"], \"allowedScopes\": [\"sample-api\"]}" $identitybaseurl/api/client)
+sampleapiclientresponse=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $accesstoken" -d "{ \"clientId\": \"sample-api-client\", \"clientName\": \"Sample API Client\", \"requireConsent\": false, \"allowedGrantTypes\": [\"client_credentials\"], \"allowedScopes\": [\"sample-api\", \"fabric/identity.manageresources\"]}" $identitybaseurl/api/client)
 echo $sampleapiclientresponse
 sampleapiclientsecret=$(echo $sampleapiclientresponse | grep -oP '(?<="clientSecret":")[^"]*')
 echo ""

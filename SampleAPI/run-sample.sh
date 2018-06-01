@@ -11,9 +11,9 @@ fi
 
 identitybaseurl=http://localhost:5001
 
-dotnet run > /dev/null 2>&1 &
-
-sleep 10
+read -p "Start the Fabric.Identity.Samples.SampleAPI now, then press [Enter] to continue."
+echo ""
+sleep 3
 
 # get access token for sample api client
 echo "getting access token for sample api client..."
@@ -24,9 +24,13 @@ echo ""
 
 echo "attempting get on http://localhost:5000/api/values with no access token"
 curl -f http://localhost:5000/api/values
+echo ""
 
 echo "attempting get on http://localhost:5000/api/values with access token"
-
 curl -f -H "Authorization: Bearer $accesstoken" http://localhost:5000/api/values
+echo ""
+echo ""
 
-kill $!
+echo "attempting get on http://localhost:5000/api/values/sample-api-client with access token"
+curl -f -H "Authorization: Bearer $accesstoken" http://localhost:5000/api/values/sample-api-client
+echo ""
