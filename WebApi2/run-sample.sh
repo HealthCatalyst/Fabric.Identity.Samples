@@ -23,7 +23,13 @@ echo ""
 
 echo "attempting get on http://localhost:42099/api/values with no access token"
 curl -f http://localhost:42099/api/values
+echo ""
 
 echo "attempting get on http://localhost:42099/api/values with access token"
-
 curl -f -H "Authorization: Bearer $accesstoken" http://localhost:42099/api/values
+echo ""
+echo ""
+
+echo "attempting get on http://localhost:42099/api/values/sample-api-client with access token"
+curl -f -H "Authorization: Bearer $accesstoken" http://localhost:42099/api/values/sample-api-client
+echo ""
