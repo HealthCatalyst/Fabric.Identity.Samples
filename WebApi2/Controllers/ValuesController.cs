@@ -22,10 +22,10 @@ namespace WebApi2.Controllers
         // GET api/values/5
         public async Task<string> Get(string id)
         {
-            var identityUrl = "http://localhost:5001";
+            var identityUrl = "https://{fabric-identity-url}";
             var tokenEndpoint = $"{identityUrl}/connect/token";
             var clientId = "sample-api-client";
-            var clientSecret = "6imd763AOEC0ZUqZ";
+            var clientSecret = "{replace-me";
             
             var tokenClient = new TokenClient(tokenEndpoint, clientId, clientSecret);
             var tokenResponse = await tokenClient.RequestClientCredentialsAsync("fabric/identity.manageresources");
