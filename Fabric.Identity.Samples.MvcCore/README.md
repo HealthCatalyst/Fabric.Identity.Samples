@@ -1,5 +1,5 @@
 ﻿# Fabric Identity & Authorization Setup
-You will need to set up a client in your local instance of Fabric.Identity and Fabric.Authorization.
+To run the ASP.NET Core MVC sample, you will need to set up a client in your local instances of Fabric.Identity and Fabric.Authorization.
 
 ## Fabric.Identity Client
 

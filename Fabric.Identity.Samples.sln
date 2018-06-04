@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0E149F8C-46FF-49BD-8308-848DDE2AC586}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Samples.MvcCore", "MvcCore\Fabric.Identity.Samples.MvcCore.csproj", "{325CEAFB-1F24-4C16-A6CF-F5B3021BDEFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Samples.MvcCore", "Fabric.Identity.Samples.MvcCore\Fabric.Identity.Samples.MvcCore.csproj", "{325CEAFB-1F24-4C16-A6CF-F5B3021BDEFB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Samples.API", "API\Fabric.Identity.Samples.API.csproj", "{3A79683B-7F9C-46BB-8E99-B075F009F572}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.InteractiveConsole", "Fabric.Identity.InteractiveConsole\Fabric.Identity.InteractiveConsole.csproj", "{10D2CE65-B32D-4BF5-807D-3597978EF1DF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleAPI", "SampleAPI\SampleAPI.csproj", "{9BBC2EB3-9F61-4F6A-A384-ECF13FE1DC4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabric.Identity.Samples.Mvc", "Fabric.Identity.Samples.Mvc\Fabric.Identity.Samples.Mvc.csproj", "{145F70BE-112D-4E9C-A903-6F2C5FB11FE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +55,17 @@ Global
 		{10D2CE65-B32D-4BF5-807D-3597978EF1DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10D2CE65-B32D-4BF5-807D-3597978EF1DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10D2CE65-B32D-4BF5-807D-3597978EF1DF}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
 		{9BBC2EB3-9F61-4F6A-A384-ECF13FE1DC4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9BBC2EB3-9F61-4F6A-A384-ECF13FE1DC4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BBC2EB3-9F61-4F6A-A384-ECF13FE1DC4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BBC2EB3-9F61-4F6A-A384-ECF13FE1DC4E}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{145F70BE-112D-4E9C-A903-6F2C5FB11FE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{145F70BE-112D-4E9C-A903-6F2C5FB11FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{145F70BE-112D-4E9C-A903-6F2C5FB11FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{145F70BE-112D-4E9C-A903-6F2C5FB11FE6}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> 0c3e219... 1) added MVC project for full framework sample, 2) renamed MvcCore directory to Fabric.Identity.Samples.MvcCore for consistency
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
