@@ -3,4 +3,4 @@ ARG source
 WORKDIR /app
 EXPOSE 5002
 COPY ${source:-obj/Docker/publish} .
-ENTRYPOINT ["dotnet", "Fabric.Identity.Samples.Mvc.dll"]
+ENTRYPOINT ["dotnet", "Fabric.Identity.Samples.MvcCore.dll"]

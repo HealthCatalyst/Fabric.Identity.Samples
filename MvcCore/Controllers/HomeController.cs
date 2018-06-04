@@ -4,14 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Fabric.Identity.Samples.Mvc.Services;
+using Fabric.Identity.Samples.MvcCore.Configuration;
+using Fabric.Identity.Samples.MvcCore.Services;
 using Fabric.Platform.Http;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Fabric.Identity.Samples.Mvc.Controllers
+namespace Fabric.Identity.Samples.MvcCore.Controllers
 {
 
     [Authorize]
@@ -19,11 +20,16 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IFabricAuthorizationService _fabricAuthorizationService;
-        public HomeController(IHttpClientFactory httpClientFactory, IFabricAuthorizationService authorizationService)
+        private readonly IAppConfiguration _appConfiguration;
+
+        public HomeController(IHttpClientFactory httpClientFactory, IFabricAuthorizationService authorizationService, IAppConfiguration appConfiguration)
         {
             _httpClientFactory = httpClientFactory;
             _fabricAuthorizationService = authorizationService ??
                                     throw new ArgumentNullException(nameof(authorizationService));
+
+            _appConfiguration = appConfiguration ??
+                                          throw new ArgumentNullException(nameof(appConfiguration));
         }
         public IActionResult Index()
         {
@@ -31,15 +37,17 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
         }
         public async Task<IActionResult> Patient()
         {
+            var clientId = _appConfiguration.IdentityServerConfidentialClientSettings.ClientId;
+
             var permissions = GetPermissionsForUserInternal().Result;
             ViewBag.UserPermissions = permissions;
-            if (permissions.Permissions.Contains("app/fabric-mvcsample.viewpatient"))
+            if (permissions.Permissions.Contains($"app/${clientId}.viewpatient"))
             {
                 var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
-                ViewBag.HasEditPatientPermission = permissions.Permissions.Contains("app/fabric-mvcsample.editpatient");
+                ViewBag.HasEditPatientPermission = permissions.Permissions.Contains($"app/{clientId}.editpatient");
                 return await CallApiWithToken(accessToken);
             }
-            ViewBag.ErrorMessage = $"This user does not have permission to view patients";
+            ViewBag.ErrorMessage = "This user does not have permission to view patients";
             return View("Patient");
         }
         
@@ -56,13 +64,14 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
 
         public async Task<IActionResult> SetupRolesAndPermissions()
         {
+            var clientId = _appConfiguration.IdentityServerConfidentialClientSettings.ClientId;
             var viewerGroup = await SetupGroup(
-                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "viewpatient"},
-                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "viewer"}, @"FABRIC\Health Catalyst Viewer").Result;
+                new {Grain = "app", SecurableItem = clientId, Name = "viewpatient"},
+                new {Grain = "app", SecurableItem = clientId, Name = "viewer"}, @"FABRIC\Health Catalyst Viewer").Result;
 
             var editorGroup = await SetupGroup(
-                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "editpatient"},
-                new {Grain = "app", SecurableItem = "fabric-mvcsample", Name = "editor"}, @"FABRIC\Health Catalyst Editor").Result;
+                new {Grain = "app", SecurableItem = clientId, Name = "editpatient"},
+                new {Grain = "app", SecurableItem = clientId, Name = "editor"}, @"FABRIC\Health Catalyst Editor").Result;
 
             ViewBag.CreatedGroups = new List<dynamic> { viewerGroup, editorGroup };
             return View("Json");
@@ -90,7 +99,7 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
         {
             var accessToken = await HttpContext.Authentication.GetTokenAsync("access_token");
             _fabricAuthorizationService.SetAccessToken(accessToken);
-            return _fabricAuthorizationService.GetPermissionsForUser("app", "fabric-mvcsample").Result;
+            return _fabricAuthorizationService.GetPermissionsForUser("app", _appConfiguration.IdentityServerConfidentialClientSettings.ClientId).Result;
         }
 
         private async Task<dynamic> SetupGroup(dynamic permission, dynamic role, string group)

@@ -1,13 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Fabric.Identity.Samples.API.Configuration;
 using Fabric.Platform.Auth;
-using Fabric.Platform.Bootstrappers.Nancy;
-using Fabric.Platform.Http;
 using Fabric.Platform.Logging;
-using LibOwin;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nancy.Owin;
@@ -17,8 +13,8 @@ namespace Fabric.Identity.Samples.API
 {
     public class Startup
     {
-        private readonly IConfiguration _config;
         private const string DefaultCorsPolicy = "default";
+        private readonly IConfiguration _config;
 
         public Startup(IHostingEnvironment env)
         {
@@ -28,6 +24,7 @@ namespace Fabric.Identity.Samples.API
 
             _config = builder.Build();
         }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddWebEncoders();
@@ -41,25 +38,24 @@ namespace Fabric.Identity.Samples.API
                         .AllowAnyMethod();
                 });
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
             var appConfig = new AppConfiguration();
-            ConfigurationBinder.Bind(_config, appConfig);
+            _config.Bind(appConfig);
             var idServerSettings = appConfig.IdentityServerConfidentialClientSettings;
 
             var levelSwitch = new LoggingLevelSwitch();
-            var logger = LogFactory.CreateLogger(levelSwitch, appConfig.ElasticSearchSettings, idServerSettings.ClientId);
-            
+            var logger = LogFactory.CreateLogger(levelSwitch, appConfig.ElasticSearchSettings,
+                idServerSettings.ClientId);
+
             app.UseCors(DefaultCorsPolicy);
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
                 Authority = idServerSettings.Authority,
                 RequireHttpsMetadata = false,
-
                 ApiName = idServerSettings.ClientId
             });
             app.UseOwin()

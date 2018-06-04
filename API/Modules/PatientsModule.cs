@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Security.Claims;
 using Nancy;
-using Nancy.Security;
 
 namespace Fabric.Identity.Samples.API.Modules
 {

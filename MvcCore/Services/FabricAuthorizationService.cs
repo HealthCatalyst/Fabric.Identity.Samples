@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using Fabric.Platform.Http;
 using Newtonsoft.Json;
 
-namespace Fabric.Identity.Samples.Mvc.Services
+namespace Fabric.Identity.Samples.MvcCore.Services
 {
     public class FabricAuthorizationService : IFabricAuthorizationService, IDisposable
     {
-        private readonly Uri UriBase = new Uri("http://localhost:5004");
+        private readonly Uri UriBase = new Uri("http://localhost/authorization");
         private HttpClient _client;
 
         public FabricAuthorizationService(IHttpClientFactory clientFactory)

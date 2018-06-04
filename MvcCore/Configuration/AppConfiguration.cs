@@ -1,6 +1,6 @@
 ﻿using Fabric.Platform.Shared.Configuration;
 
-namespace Fabric.Identity.Samples.Mvc.Configuration
+namespace Fabric.Identity.Samples.MvcCore.Configuration
 {
     public class AppConfiguration : IAppConfiguration
     {
