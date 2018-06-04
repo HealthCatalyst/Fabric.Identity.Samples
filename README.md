@@ -1,6 +1,6 @@
 # Fabric.Identity.Samples
 
-The samples in this project demostrate how to integrate with the Fabric.Identity service for authentication and authorization.
+The samples in this project demonstrate how to integrate with the Fabric.Identity service for authentication and authorization.
 
 ## Platform
 
@@ -21,8 +21,12 @@ These samples are built using various technologies including:
 
 ## Sample Details
 
-### MVC Sample
-This is an ASP .NET Core MVC project that is setup to use the Fabric.Identity service to perform authentication and authorization. Authentication is done using Hybrid flow.
+### ASP.NET MVC Core Sample
+This is an ASP.NET Core MVC project that is setup to use the Fabric.Identity service to perform authentication and authorization. Authentication is done using Hybrid flow.
+The web server for this application listens on port 5002.
+
+### ASP.NET MVC (Full Framework) Sample
+This is an ASP.NET MVC project that is setup to use the Fabric.Identity service to perform authentication and authorization. Authentication is done using Hybrid flow.
 The web server for this application listens on port 5002.
 
 ### Angular Sample
