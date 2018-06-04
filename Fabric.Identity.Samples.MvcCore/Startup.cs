@@ -14,7 +14,6 @@
 
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
-using Fabric.Identity.Samples.MvcCore.Services;
 using Fabric.Identity.Samples.MvcCore.Configuration;
 using Fabric.Platform.Bootstrappers.AspNetCoreMvc;
 using Fabric.Platform.Logging;
@@ -52,10 +51,7 @@ namespace Fabric.Identity.Samples.MvcCore
             Configuration.Bind(_appConfig);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton(_appConfig);
-            services.AddScoped<IFabricAuthorizationService, FabricAuthorizationService>();
             services.AddHttpClientFactory(_appConfig.IdentityServerConfidentialClientSettings);
-
-// Add framework services.
             services.AddMvc();
         }
 
@@ -93,7 +89,6 @@ namespace Fabric.Identity.Samples.MvcCore
                     "openid",
                     "profile",
                     "fabric.profile",
-                    //"patientapi",
                     "fabric/authorization.read",
                     "fabric/authorization.write",
                     "offline_access"

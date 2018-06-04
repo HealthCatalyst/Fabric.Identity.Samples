@@ -11,13 +11,17 @@
 @*</div>*@
 
 <div class="row">
-    <h2>Hello, world!</h2>
-    <p>This is an example of an ASP .NET Core MVC app authenticating to Fabric.Identity, using Fabric.Authorization to authorize actions within the app, and calling a mock Fabric service to get sample patient data.</p>
-    <p>To test it out:</p>
-    <ul>
-        <li><a asp-action="SetupRolesAndPermissions">Setup Roles and Permissions</a></li>
-        <li><a asp-action="GetPermissionsForUser">View Permissions for the Authenticated User</a></li>
-        <li><a asp-action="GetGroupsRolesAndPermissions">View Created Groups Roles and Permissions</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="Patient">View Patient</a></li>
-    </ul>
+    <p>This is an example of an ASP.NET Core MVC app authenticating with Fabric.Identity.</p>    
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>
+            <ul>
+            You have the following claims:
+            @foreach (var claim in User.Claims)
+            {
+                <li>Type: @claim.Type, Value: @claim.Value</li>
+            }
+            </ul>
+        </p>
+    }
 </div>
