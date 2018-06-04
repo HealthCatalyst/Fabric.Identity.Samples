@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using IdentityServer3.AccessTokenValidation;
+﻿using IdentityServer3.AccessTokenValidation;
 using Microsoft.Owin;
 using Owin;
-using System.Web.Http;
+using WebApi2;
 
-[assembly: OwinStartup(typeof(WebApi2.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 
 namespace WebApi2
 {

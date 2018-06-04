@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Fabric.Identity.Samples.Mvc
+namespace Fabric.Identity.Samples.MvcCore
 {
     public class Program
     {

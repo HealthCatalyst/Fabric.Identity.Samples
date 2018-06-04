@@ -14,8 +14,8 @@
 
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
-using Fabric.Identity.Samples.Mvc.Configuration;
-using Fabric.Identity.Samples.Mvc.Services;
+using Fabric.Identity.Samples.MvcCore.Services;
+using Fabric.Identity.Samples.MvcCore.Configuration;
 using Fabric.Platform.Bootstrappers.AspNetCoreMvc;
 using Fabric.Platform.Logging;
 using Microsoft.AspNetCore.Builder;
@@ -27,17 +27,18 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Core;
 
-namespace Fabric.Identity.Samples.Mvc
+namespace Fabric.Identity.Samples.MvcCore
 {
     public class Startup
     {
         private IAppConfiguration _appConfig;
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -47,24 +48,25 @@ namespace Fabric.Identity.Samples.Mvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             _appConfig = new AppConfiguration();
-            ConfigurationBinder.Bind(Configuration, _appConfig);
+            Configuration.Bind(_appConfig);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton(_appConfig);
             services.AddScoped<IFabricAuthorizationService, FabricAuthorizationService>();
             services.AddHttpClientFactory(_appConfig.IdentityServerConfidentialClientSettings);
-            // Add framework services.
+
+// Add framework services.
             services.AddMvc();
         }
-        
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            
             var idServerSettings = _appConfig.IdentityServerConfidentialClientSettings;
 
             var levelSwitch = new LoggingLevelSwitch();
-            var logger = LogFactory.CreateLogger(levelSwitch, _appConfig.ElasticSearchSettings, idServerSettings.ClientId);
+            var logger = LogFactory.CreateLogger(levelSwitch, _appConfig.ElasticSearchSettings,
+                idServerSettings.ClientId);
 
             loggerFactory.AddSerilog(logger);
 
@@ -73,7 +75,6 @@ namespace Fabric.Identity.Samples.Mvc
             {
                 AuthenticationScheme = "Cookies"
             });
-
 
             app.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
             {
@@ -87,7 +88,16 @@ namespace Fabric.Identity.Samples.Mvc
                 ClientSecret = idServerSettings.ClientSecret,
 
                 ResponseType = "code id_token",
-                Scope = { "openid", "profile", "fabric.profile", "patientapi", "fabric/authorization.read", "fabric/authorization.write", "offline_access" },
+                Scope =
+                {
+                    "openid",
+                    "profile",
+                    "fabric.profile",
+                    //"patientapi",
+                    "fabric/authorization.read",
+                    "fabric/authorization.write",
+                    "offline_access"
+                },
 
                 GetClaimsFromUserInfoEndpoint = true,
                 SaveTokens = true
@@ -111,12 +121,9 @@ namespace Fabric.Identity.Samples.Mvc
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
             });
-
-
-
         }
     }
 }

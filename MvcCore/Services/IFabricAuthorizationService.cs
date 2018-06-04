@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Fabric.Identity.Samples.Mvc.Services
+namespace Fabric.Identity.Samples.MvcCore.Services
 {
     public interface IFabricAuthorizationService
     {

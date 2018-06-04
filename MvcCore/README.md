@@ -6,7 +6,7 @@ You will need to set up a client in your local instance of Fabric.Identity and F
 ### Prerequisites
 * This document assumes you have Fabric.Identity and Fabric.Authorization installed locally.
 
-* To run the sample as is, you will need an `ApiResource` registered with Fabric.Identity that has an `ApiScope` of `patientapi`. If this does not exist, then you will need to remove the `patientapi` scope on line 89 of `Startup.cs`.
+* To run the sample as is, you will need an `ApiResource` registered with Fabric.Identity that has an `ApiScope` of `patientapi`. If this does not exist, then you will need to remove the `patientapi` scope on line 96 of `Startup.cs`.
 
 ### Setup
 Assuming your Fabric.Identity instance is running at `http://localhost/identity`, you can run the following `curl` command to create the Fabric.Identity.Samples.CoreMvc client:
@@ -46,7 +46,7 @@ and `{identity_client.json}` is a file containing the following payload:
 
 _Note the `redirectUris` and `postLogoutRedirectUris` assume the sample app is running at http://localhost:5002._
 
-After running the `curl` command
+The `IdentityServerConfidentialClientSettings.ClientSecret` in `appSettings.json` should be set to the `clientSecret` contained in the JSON response of the `curl` command.
 
 ## Fabric.Authorization Client
 
@@ -67,4 +67,4 @@ and `{auth_client.json}` is a file containing the following payload:
 ```
 
 ## Running the Sample Application
-Once you complete steps above, you can execute the sample by running through Visual Studio debugger and navigating to `http://localhost:5002` or installing the application on your local IIS.
+Once you complete the steps above, you can execute the sample by running through Visual Studio debugger and navigating to `http://localhost:5002` or installing the application on your local IIS.

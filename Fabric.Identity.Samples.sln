@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0E149F8C-46FF-49BD-8308-848DDE2AC586}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Samples.Mvc", "Mvc\Fabric.Identity.Samples.Mvc.csproj", "{325CEAFB-1F24-4C16-A6CF-F5B3021BDEFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Samples.MvcCore", "MvcCore\Fabric.Identity.Samples.MvcCore.csproj", "{325CEAFB-1F24-4C16-A6CF-F5B3021BDEFB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Samples.API", "API\Fabric.Identity.Samples.API.csproj", "{3A79683B-7F9C-46BB-8E99-B075F009F572}"
 EndProject
