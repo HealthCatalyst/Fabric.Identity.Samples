@@ -5,38 +5,6 @@
     <h3>@ViewBag.ErrorMessage</h3>
 }
 
-@if (ViewBag.PatientDataResponse != null)
-{
-    <h3>Patient Information</h3>
-    <dl>
-        <dt>Patient First Name</dt>
-        <dd>@ViewBag.PatientDataResponse.FirstName</dd>
-        <dt>Patient Last Name</dt>
-        <dd>@ViewBag.PatientDataResponse.LastName</dd>
-        <dt>Patient DOB</dt>
-        <dd>@ViewBag.PatientDataResponse.DateOfBirth</dd>
-    </dl>
-}
-
-@if (ViewBag.CreatedGroups != null)
-{
-    <h3>Created Roles and Permissions</h3>
-    foreach (var group in ViewBag.CreatedGroups)
-    {
-        <pre>
-            @Html.Raw(JsonConvert.SerializeObject(group, Formatting.Indented))
-        </pre>
-    }
-}
-
-@if (ViewBag.UserPermissions != null)
-{
-    <h3>Authenticated User's Permissions</h3>
-    <pre>
-        @Html.Raw(JsonConvert.SerializeObject(ViewBag.UserPermissions, Formatting.Indented))
-    </pre>
-}
-
 <h3>Authenticated User Claims</h3>
 <dl>
     @foreach (var claim in User.Claims)
