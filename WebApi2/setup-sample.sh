@@ -43,7 +43,7 @@ echo ""
 
 # register sample api client
 echo "registering Sample API Client..."
-sampleapiclientresponse=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $accesstoken" -d "{ \"clientId\": \"sample-api-client\", \"clientName\": \"Sample API Client\", \"requireConsent\": false, \"allowedGrantTypes\": [\"client_credentials\"], \"allowedScopes\": [\"sample-api\", \"fabric/identity.manageresources\"]}" $identitybaseurl/api/client)
+sampleapiclientresponse=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $accesstoken" -d "{ \"clientId\": \"sample-api-client\", \"clientName\": \"Sample API Client\", \"requireConsent\": false, \"allowedGrantTypes\": [\"client_credentials\", \"delegation\"], \"allowedScopes\": [\"sample-api\", \"fabric/identity.manageresources\"]}" $identitybaseurl/api/client)
 echo $sampleapiclientresponse
 sampleapiclientsecret=$(echo $sampleapiclientresponse | grep -oP '(?<="clientSecret":")[^"]*')
 echo ""
