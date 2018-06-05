@@ -18,9 +18,7 @@ and `{identity_client.json}` is a file containing the following payload:
         "openid",
         "profile",
         "fabric.profile",
-        "offline_access",
-        "fabric/authorization.read",
-        "fabric/authorization.write"
+        "offline_access"
     ],
     "allowedGrantTypes": [
         "hybrid"

@@ -89,8 +89,6 @@ namespace Fabric.Identity.Samples.MvcCore
                     "openid",
                     "profile",
                     "fabric.profile",
-                    "fabric/authorization.read",
-                    "fabric/authorization.write",
                     "offline_access"
                 },
 

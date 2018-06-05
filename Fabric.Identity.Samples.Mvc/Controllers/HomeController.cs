@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 
 namespace Fabric.Identity.Samples.Mvc.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -13,18 +11,10 @@ namespace Fabric.Identity.Samples.Mvc.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Logout()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            Request.GetOwinContext().Authentication.SignOut("Cookies", "oidc");
+            return Redirect("/");
         }
     }
 }
