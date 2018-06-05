@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
 namespace WebApi2
 {
@@ -9,14 +6,13 @@ namespace WebApi2
     {
         public static HttpConfiguration Register()
         {
-
-            HttpConfiguration config = new HttpConfiguration();
+            var config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
-            
+
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                "DefaultApi",
+                "api/{controller}/{id}",
+                new {id = RouteParameter.Optional}
             );
 
             return config;
