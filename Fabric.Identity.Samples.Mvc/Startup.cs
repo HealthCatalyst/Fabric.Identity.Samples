@@ -24,11 +24,11 @@ namespace Fabric.Identity.Samples.Mvc
             app.UseOpenIdConnectAuthentication(new OpenIdConnectAuthenticationOptions
             {
                 AuthenticationType = "oidc",
-                ClientId = "fabric-mvc-sample",
-                ClientSecret = "secret",
-                RedirectUri = "http://localhost:51627/signin-oidc",
-                PostLogoutRedirectUri = "http://localhost:51627/signout-callback-oidc",
-                Authority = "http://localhost/identity",
+                ClientId = "{replace-me}",
+                ClientSecret = "{replace-me}",
+                RedirectUri = "{app_root}/signin-oidc",
+                PostLogoutRedirectUri = "{app_root}/signout-callback-oidc",
+                Authority = "{identity_url}",
                 ResponseType = "code id_token",
                 Scope = "openid profile fabric.profile offline_access",
                 UseTokenLifetime = false,
