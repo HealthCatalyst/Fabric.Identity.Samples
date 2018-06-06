@@ -77,11 +77,11 @@ namespace Fabric.Identity.Samples.MvcCore
                 AuthenticationScheme = "oidc",
                 SignInScheme = "Cookies",
 
-                Authority = idServerSettings.Authority,
+                Authority = "{replace-me}",
                 RequireHttpsMetadata = false,
 
-                ClientId = idServerSettings.ClientId,
-                ClientSecret = idServerSettings.ClientSecret,
+                ClientId = "{replace-me}",
+                ClientSecret = "{replace-me}",
 
                 ResponseType = "code id_token",
                 Scope =
