@@ -77,19 +77,20 @@ namespace Fabric.Identity.Samples.MvcCore
                 AuthenticationScheme = "oidc",
                 SignInScheme = "Cookies",
 
-                Authority = "{replace-me}",
+                Authority = "{identity-url}",
                 RequireHttpsMetadata = false,
 
-                ClientId = "{replace-me}",
-                ClientSecret = "{replace-me}",
+                ClientId = "{client-id}", // fabric-mvc-core-sample
+                ClientSecret = "{client-secret}",
 
                 ResponseType = "code id_token",
                 Scope =
                 {
                     "openid",
+                    "email",
                     "profile",
-                    "fabric.profile",
-                    "offline_access"
+                    "offline_access",
+                    "fabric/identity.manageresources"
                 },
 
                 GetClaimsFromUserInfoEndpoint = true,

@@ -1,5 +1,5 @@
 ﻿# Fabric Identity Setup
-To run the ASP.NET Core MVC sample, you will need to set up a client in your local instances of Fabric.Identity.
+To run the Fabric.Identity.Samples.MvcCore project, you will need to set up a client in your local instances of Fabric.Identity.
 
 ## Fabric.Identity Client
 Assuming your Fabric.Identity instance is running at `http://localhost/identity`, you can run the following `curl` command to create the Fabric.Identity.Samples.CoreMvc client:
