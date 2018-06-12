@@ -1,23 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="row-centered logo-row">
-    <img src="~/images/HC_logo.svg" alt="ASP.NET" />
-</div>
-
-<div class="row">
-    <p>This is an example of an ASP.NET Core MVC app authenticating with Fabric.Identity.</p>    
-    @if (User.Identity.IsAuthenticated)
-    {
-        <p>
-            <ul>
-            You have the following claims:
-            @foreach (var claim in User.Claims)
-            {
-                <li>Type: @claim.Type, Value: @claim.Value</li>
-            }
-            </ul>
-        </p>
-    }
+<div class="jumbotron">
+    <h2>Fabric.Identity MVC Core Hybrid Sample</h2>
+    <p class="lead">This is an example of an ASP.NET Core MVC app authenticating with Fabric.Identity. Click the Claims link above to initiate the authentication flow.</p>
 </div>
