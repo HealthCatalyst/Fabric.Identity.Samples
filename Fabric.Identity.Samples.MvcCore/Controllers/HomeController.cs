@@ -36,7 +36,7 @@ namespace Fabric.Identity.Samples.MvcCore.Controllers
             var client = new HttpClient();
             client.SetBearerToken(token);
 
-            var result = await client.GetStringAsync("{identity-url}/api/client/fabric-mvc-sample");
+            var result = await client.GetStringAsync("{identity-url}/api/client/{client-id}");
             ViewBag.Json = result;
             return View();
         }
