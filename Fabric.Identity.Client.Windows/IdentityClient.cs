@@ -103,11 +103,8 @@ namespace Fabric.Identity.Client.Windows
             if (result.IsError)
             {
                 Console.WriteLine("There was an error: {0}", result.Error);
+                throw new Exception(result.Error);
             }
-
-            Console.WriteLine("Identity Token: {0}", result.IdentityToken);
-            Console.WriteLine("Access Token: {0}", result.AccessToken);
-            Console.WriteLine("Refresh Token: {0}", result.RefreshToken);
 
             return new IdentityClientResult
             {

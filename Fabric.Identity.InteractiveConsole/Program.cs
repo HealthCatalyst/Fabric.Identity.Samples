@@ -28,7 +28,11 @@ namespace Fabric.Identity.InteractiveConsole
             Console.WriteLine("Press any key to start the sign in process...");
             Console.ReadKey();
             
-            await identityClient.SignIn(configuration);
+            var result = await identityClient.SignIn(configuration);
+
+            Console.WriteLine("Identity Token: {0}", result.IdentityToken);
+            Console.WriteLine("Access Token: {0}", result.AccessToken);
+            Console.WriteLine("Refresh Token: {0}", result.RefreshToken);
 
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();
