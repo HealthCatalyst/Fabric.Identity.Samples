@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -7,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using IdentityModel.Client;
 using IdentityModel.OidcClient;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Serilog;
 
@@ -115,25 +113,5 @@ namespace Fabric.Identity.Client.Windows
                 UserName = result.User?.Identity?.Name
             };
         }
-
     }
-
-    public class IdentityClientConfiguration
-    {
-        public string ClientId { get; set; }
-        public string HostBaseUri { get; set; }
-        public int Port { get; set; }
-        public string Scope { get; set; }
-        public string Authority { get; set; }
-    }
-
-    public class IdentityClientResult
-    {
-        public string IdentityToken { get; set; }
-        public string AccessToken { get; set; }
-        public string RefreshToken { get; set; }
-        public DateTime AccessTokenExpiration { get; set; }
-        public string UserName { get; set; }
-    }
-    
 }
