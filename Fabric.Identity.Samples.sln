@@ -23,9 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fabric.Identity.Samples.Mvc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Client.Windows", "Fabric.Identity.Client.Windows\Fabric.Identity.Client.Windows.csproj", "{BECEF756-CEA9-4B4E-9648-21B0DEAFA9DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HybridPkce.Core.Android", "HybridPkce.Core\HybridPkce.Core.Android\HybridPkce.Core.Android.csproj", "{55558801-4BF5-45B0-8F99-0271F01DE45E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HybridPkce.Android", "HybridPkce\HybridPkce.Android\HybridPkce.Android.csproj", "{4F626B79-DD5E-47CC-9CE0-A6261C435860}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HybridPkce.Core", "HybridPkce.Core\HybridPkce.Core\HybridPkce.Core.csproj", "{190B50BE-E2FC-4449-81E8-3FDB65EBAC28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HybridPkce", "HybridPkce\HybridPkce\HybridPkce.csproj", "{73202553-752A-4B9E-B6C1-086700D6AE3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,16 +73,16 @@ Global
 		{BECEF756-CEA9-4B4E-9648-21B0DEAFA9DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BECEF756-CEA9-4B4E-9648-21B0DEAFA9DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BECEF756-CEA9-4B4E-9648-21B0DEAFA9DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55558801-4BF5-45B0-8F99-0271F01DE45E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55558801-4BF5-45B0-8F99-0271F01DE45E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55558801-4BF5-45B0-8F99-0271F01DE45E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{55558801-4BF5-45B0-8F99-0271F01DE45E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55558801-4BF5-45B0-8F99-0271F01DE45E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55558801-4BF5-45B0-8F99-0271F01DE45E}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{190B50BE-E2FC-4449-81E8-3FDB65EBAC28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{190B50BE-E2FC-4449-81E8-3FDB65EBAC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{190B50BE-E2FC-4449-81E8-3FDB65EBAC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{190B50BE-E2FC-4449-81E8-3FDB65EBAC28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F626B79-DD5E-47CC-9CE0-A6261C435860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F626B79-DD5E-47CC-9CE0-A6261C435860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F626B79-DD5E-47CC-9CE0-A6261C435860}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4F626B79-DD5E-47CC-9CE0-A6261C435860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F626B79-DD5E-47CC-9CE0-A6261C435860}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F626B79-DD5E-47CC-9CE0-A6261C435860}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{73202553-752A-4B9E-B6C1-086700D6AE3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73202553-752A-4B9E-B6C1-086700D6AE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73202553-752A-4B9E-B6C1-086700D6AE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73202553-752A-4B9E-B6C1-086700D6AE3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
