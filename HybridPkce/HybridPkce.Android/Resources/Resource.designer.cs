@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("HybridPkce.Core.Droid.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("HybridPkce.Droid.Resource", IsApplication=true)]
 
-namespace HybridPkce.Core.Droid
+namespace HybridPkce.Droid
 {
 	
 	
@@ -26,7 +26,7 @@ namespace HybridPkce.Core.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::HybridPkce.Core.Droid.Resource.Attribute.actionBarSize;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::HybridPkce.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation

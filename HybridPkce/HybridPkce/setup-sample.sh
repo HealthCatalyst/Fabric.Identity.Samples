@@ -7,14 +7,14 @@ else
 	hybridpkcesamplerooturl="http://localhost:5002"
 fi
 
-echo "app root = hybridpkcesamplerooturl"
+echo "app root = $hybridpkcesamplerooturl"
 
 docker stop android-hybrid-pkce-sample-identity
-docker rm android-hybrid-pkce--sample-identity
+docker rm android-hybrid-pkce-sample-identity
 
 docker pull healthcatalyst/fabric.identity
 
-docker run -d --name mvc-core-hybrid-sample-identity \
+docker run -d --name android-hybrid-pkce-sample-identity \
 	-p 5001:5001 \
 	-e "HostingOptions__StorageProvider=InMemory" \
 	-e "IssuerUri=$identitybaseurl" \
@@ -45,7 +45,7 @@ echo ""
 
 # register hybrid-pkce-android-sample client
 echo "registering Hybrid PKCE Android Sample Client..."
-sampleclientresponse=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $accesstoken" -d "{ \"clientId\": \"hybrid-pkce-android-sample\", \"clientName\": \"Hybrid PKCE Android Sample\", \"requireConsent\": false, \"allowOfflineAccess\": true, \"allowedGrantTypes\": [\"hybrid\"], \"requirePkce\": true, \"redirectUris\": [\"hybridpkcesamplerooturl/signin-oidc\"], \"allowedScopes\": [\"openid\", \"profile\", \"email\", \"offline_access\", \"fabric/identity.manageresources\"]}" $identitybaseurl/api/client)
+sampleclientresponse=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $accesstoken" -d "{ \"clientId\": \"hybrid-pkce-android-sample\", \"clientName\": \"Hybrid PKCE Android Sample\", \"requireConsent\": false, \"allowOfflineAccess\": true, \"allowedGrantTypes\": [\"hybrid\"], \"requirePkce\": true, \"redirectUris\": [\"xamarinformsclients://callback\"], \"allowedScopes\": [\"openid\", \"profile\", \"email\", \"offline_access\", \"fabric/identity.manageresources\"]}" $identitybaseurl/api/client)
 echo sampleclientresponse
 sampleclientsecret=$(echo $sampleclientresponse | grep -oP '(?<="clientSecret":")[^"]*')
 echo ""

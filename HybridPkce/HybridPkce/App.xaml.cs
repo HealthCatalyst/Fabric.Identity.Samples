@@ -3,7 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-namespace HybridPkce.Core
+namespace HybridPkce
 {
     public partial class App : Application
     {
