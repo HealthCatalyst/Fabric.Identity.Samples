@@ -1,11 +1,7 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using Xamarin.Forms;
 
 namespace HybridPkce.Droid
 {
@@ -14,6 +10,8 @@ namespace HybridPkce.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            DependencyService.Register<ChromeCustomTabsBrowser>();
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 

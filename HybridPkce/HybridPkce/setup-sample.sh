@@ -1,13 +1,6 @@
 ﻿#!/bin/bash
-identitybaseurl=http://localhost:5001
-
-if [ $1 ]; then
-	hybridpkcesamplerooturl=$1
-else
-	hybridpkcesamplerooturl="http://localhost:5002"
-fi
-
-echo "app root = $hybridpkcesamplerooturl"
+identitybaseurl=http://localhost/identity
+androidemulatoridentitybaseurl=http://10.0.2.2:5001
 
 docker stop android-hybrid-pkce-sample-identity
 docker rm android-hybrid-pkce-sample-identity
@@ -16,7 +9,7 @@ docker pull healthcatalyst/fabric.identity
 
 docker run -d --name android-hybrid-pkce-sample-identity \
 	-p 5001:5001 \
-	-e "HostingOptions__StorageProvider=InMemory" \
+	-e "HostingOptions__StorageProvider=SqlServer" \
 	-e "IssuerUri=$identitybaseurl" \
 	-e "IDENTITYSERVERCONFIDENTIALCLIENTSETTINGS__AUTHORITY=$identitybaseurl" \
 	healthcatalyst/fabric.identity

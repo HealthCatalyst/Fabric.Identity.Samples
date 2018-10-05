@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabric.Identity.Client.Wind
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HybridPkce.Android", "HybridPkce\HybridPkce.Android\HybridPkce.Android.csproj", "{4F626B79-DD5E-47CC-9CE0-A6261C435860}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HybridPkce", "HybridPkce\HybridPkce\HybridPkce.csproj", "{73202553-752A-4B9E-B6C1-086700D6AE3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HybridPkce", "HybridPkce\HybridPkce\HybridPkce.csproj", "{73202553-752A-4B9E-B6C1-086700D6AE3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
