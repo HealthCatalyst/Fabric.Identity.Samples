@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Text;
 using IdentityModel.Client;
 using IdentityModel.OidcClient;
@@ -12,6 +13,20 @@ namespace HybridPkce
     {
         private readonly OidcClient _client;
         private LoginResult _result;
+
+        private string _output;
+        public string Output
+        {
+            get
+            {
+                return _output;
+            }
+            set
+            {
+                _output = value;
+                this.OnPropertyChanged("Output");
+            }
+        }
 
         public MainPage()
         {
@@ -58,12 +73,6 @@ namespace HybridPkce
                     return;
                 }
 
-                Log.Warning("Warning", $"Login succeeded {_result.User}");
-
-                CallApi.IsVisible = true;
-                Login.IsVisible = false;
-                Logout.IsVisible = true;
-
                 var sb = new StringBuilder(128);
                 foreach (var claim in _result.User.Claims)
                 {
@@ -73,11 +82,11 @@ namespace HybridPkce
                 sb.AppendFormat("\n{0}: {1}\n", "refresh token", _result?.RefreshToken ?? "none");
                 sb.AppendFormat("\n{0}: {1}\n", "access token", _result.AccessToken);
 
-                OutputText.Text = sb.ToString();
+                Device.BeginInvokeOnMainThread(() => Output = sb.ToString());
             }
             catch (Exception ex)
             {
-                OutputText.Text = ex.Message;
+                Output = ex.Message;
             }
         }
 
