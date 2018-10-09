@@ -1,6 +1,5 @@
 ﻿#!/bin/bash
 identitybaseurl=http://localhost/identity
-androidemulatoridentitybaseurl=http://10.0.2.2:5001
 
 docker stop android-hybrid-pkce-sample-identity
 docker rm android-hybrid-pkce-sample-identity
