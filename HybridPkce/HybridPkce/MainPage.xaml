@@ -11,8 +11,7 @@
                 <Button Text="Call Api" x:Name="CallApi" />
                 <Label x:Name="OutputText"
                        VerticalOptions="FillAndExpand" 
-                       HorizontalOptions="FillAndExpand"
-                       Text="{Binding Output}"/>
+                       HorizontalOptions="FillAndExpand" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

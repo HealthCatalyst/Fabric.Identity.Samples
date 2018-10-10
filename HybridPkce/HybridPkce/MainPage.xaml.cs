@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Text;
 using IdentityModel.Client;
 using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 
 namespace HybridPkce
 {
@@ -13,20 +11,6 @@ namespace HybridPkce
     {
         private readonly OidcClient _client;
         private LoginResult _result;
-
-        private string _output;
-        public string Output
-        {
-            get
-            {
-                return _output;
-            }
-            set
-            {
-                _output = value;
-                this.OnPropertyChanged("Output");
-            }
-        }
 
         public MainPage()
         {
@@ -42,19 +26,17 @@ namespace HybridPkce
 
             var options = new OidcClientOptions
             {
-                // 10.0.2.2 is an alias for localhost on the computer when using the android emulator
-                Authority = "http://10.0.2.2/identity",
+                // NOTE: this cannot be "localhost" since the Android emulator cannot resolve "localhost". The other option is to use 10.0.2.2.
+                Authority = "http://{REPLACE-ME}/identity",
                 ClientId = "hybrid-pkce-android-sample",
-                ClientSecret = "FSaSLN+fyU+Agt+6",
                 Scope = "openid profile email offline_access",
                 RedirectUri = "xamarinformsclients://callback",
-                //PostLogoutRedirectUri = "xamarinformsclients://callback",
                 Browser = browser,
                 Flow = OidcClientOptions.AuthenticationFlow.Hybrid,
                 ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect,
                 Policy = new Policy
                 {
-                    Discovery = new DiscoveryPolicy() { RequireHttps = false }
+                    Discovery = new DiscoveryPolicy { RequireHttps = false }
                 }
             };
 
@@ -82,11 +64,11 @@ namespace HybridPkce
                 sb.AppendFormat("\n{0}: {1}\n", "refresh token", _result?.RefreshToken ?? "none");
                 sb.AppendFormat("\n{0}: {1}\n", "access token", _result.AccessToken);
 
-                Device.BeginInvokeOnMainThread(() => Output = sb.ToString());
+                OutputText.Text = sb.ToString();
             }
             catch (Exception ex)
             {
-                Output = ex.Message;
+                OutputText.Text = ex.Message;
             }
         }
 
