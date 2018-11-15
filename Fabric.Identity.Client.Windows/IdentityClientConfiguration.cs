@@ -7,5 +7,6 @@
         public int Port { get; set; }
         public string Scope { get; set; }
         public string Authority { get; set; }
+        public string[] AllowedGrantTypes { get; set; }
     }
 }
