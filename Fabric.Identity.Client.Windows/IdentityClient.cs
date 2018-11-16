@@ -21,7 +21,7 @@ namespace Fabric.Identity.Client.Windows
             var installerAccessToken = await GetInstallerAccessToken(configuration, installerSecret);
 
             using (var httpClient = new HttpClient())
-            {
+     {
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", installerAccessToken);
 
@@ -30,7 +30,7 @@ namespace Fabric.Identity.Client.Windows
                     ClientId = configuration.ClientId,
                     ClientName = configuration.ClientId,
                     RequireConsent = false,
-                    AllowedGrantTypes = new[] { "hybrid" },
+                    AllowedGrantTypes = configuration.AllowedGrantTypes,
                     RedirectUris = new[] { $"{configuration.HostBaseUri}:{configuration.Port}/{_uriPath}" },
                     AllowOfflineAccess = true,
                     RequireClientSecret = false,
@@ -71,6 +71,7 @@ namespace Fabric.Identity.Client.Windows
         }
 
         public async Task<IdentityClientResult> SignIn(IdentityClientConfiguration configuration)
+
         {
 
             var port = configuration.Port;

@@ -53,7 +53,8 @@ namespace Fabric.Identity.InteractiveConsole
                 Authority = appConfig.Authority,
                 ClientId = appConfig.ClientId,
                 Port = appConfig.Port,
-                Scope = appConfig.Scope
+                Scope = appConfig.Scope,
+                AllowedGrantTypes = appConfig.AllowedGrantTypes
             };
         }
 

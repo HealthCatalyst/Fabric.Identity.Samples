@@ -11,5 +11,6 @@ namespace Fabric.Identity.InteractiveConsole
         public int Port { get; set; }
         public string Authority { get; set; }
         public string HostBaseUri { get; set; }
+        public string[] AllowedGrantTypes { get; set; }
     }
 }
